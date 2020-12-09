@@ -39,7 +39,7 @@ public class HelperShared {
         editor.putString("last_name", data.getLastname());
         editor.putString("email", data.getEmail());
         editor.putString("username", data.getUsername());
-
+        editor.putString("pic", data.getPic());
         editor.putString("gender", data.getGender());
         editor.putString("access_token", data.getToken());
         editor.apply();
@@ -54,7 +54,8 @@ public class HelperShared {
                 sharedPreferences.getString("email", ""),
                 sharedPreferences.getString("username", ""),
                 sharedPreferences.getString("gender", ""),
-                sharedPreferences.getString("access_token", "")
+                sharedPreferences.getString("access_token", ""),
+                sharedPreferences.getString("pic", "")
         );
 
     }

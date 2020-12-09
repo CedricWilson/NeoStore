@@ -23,8 +23,10 @@ public class DataLogin {
     private String token;
     @SerializedName("username")
     private String username;
+    @SerializedName("profile_pic")
+    private String pic;
 
-    public DataLogin(int id, String first_name, String last_name, String email, String username, String gender, String access_token) {
+    public DataLogin(int id, String first_name, String last_name, String email, String username, String gender, String access_token,String pic) {
         this.id=id;
         this.firstname=first_name;
         this.lastname=last_name;
@@ -32,6 +34,7 @@ public class DataLogin {
         this.username=username;
         this.gender=gender;
         this.token=access_token;
+        this.pic = pic;
     }
 
     public int getId() {
@@ -72,5 +75,9 @@ public class DataLogin {
 
     public String getPhone() {
         return phone;
+    }
+
+    public String getPic() {
+        return pic;
     }
 }

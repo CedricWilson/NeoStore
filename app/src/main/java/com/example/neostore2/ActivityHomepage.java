@@ -3,7 +3,6 @@ package com.example.neostore2;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
-import android.os.Handler;
 import android.view.Gravity;
 import android.view.MenuItem;
 import android.view.View;
@@ -16,6 +15,7 @@ import androidx.core.view.GravityCompat;
 import androidx.drawerlayout.widget.DrawerLayout;
 import androidx.viewpager.widget.ViewPager;
 
+import com.bumptech.glide.Glide;
 import com.google.android.material.navigation.NavigationView;
 import com.rd.PageIndicatorView;
 
@@ -60,13 +60,16 @@ public class ActivityHomepage extends AppCompatActivity implements View.OnClickL
 
         NavigationView navigationView = findViewById(R.id.nvHome);
         View hView = navigationView.getHeaderView(0);
+        ImageView hampic = hView.findViewById(R.id.ivHamPic);
         TextView hamname = hView.findViewById(R.id.hamName);
         TextView hammail = hView.findViewById(R.id.hamMail);
 
 
         hamname.setText(HelperShared.Helper.getInstance(getApplicationContext()).fetchUser().getFirstname() + " " + HelperShared.Helper.getInstance(getApplicationContext()).fetchUser().getLastname());
         hammail.setText(HelperShared.Helper.getInstance(getApplicationContext()).fetchUser().getEmail());
+        String pic = HelperShared.Helper.getInstance(getApplicationContext()).fetchUser().getPic();
 
+        Glide.with(this).load(pic).into(hampic);
         String tok = HelperShared.Helper.getInstance(this).fetchUser().getToken();
         cartcounter(tok);
 
@@ -150,6 +153,10 @@ public class ActivityHomepage extends AppCompatActivity implements View.OnClickL
                         Intent order = new Intent(getApplicationContext(), ActivityOrderList.class);
                         startActivity(order);
                         break;
+                    case R.id.myAccount:
+                        Intent account = new Intent(getApplicationContext(), ActivityEditProfile.class);
+                        startActivity(account);
+                        break;
                     case R.id.Tables:
                         furniture("1");
                         break;
@@ -230,15 +237,15 @@ public class ActivityHomepage extends AppCompatActivity implements View.OnClickL
                     TextView hamcart = navigationView.getMenu().findItem(R.id.MyCart).getActionView().findViewById(R.id.counter);
                     TextView homecounter = findViewById(R.id.tvCartCount);
 
-                                if (s == null) {
-                                hamcart.setVisibility(View.GONE);
-                                homecounter.setVisibility(View.GONE);
-                            } else {
-                                hamcart.setVisibility(View.VISIBLE);
-                                homecounter.setVisibility(View.VISIBLE);
-                                hamcart.setText(s);
-                                homecounter.setText(s);
-                            }
+                    if (s == null) {
+                        hamcart.setVisibility(View.GONE);
+                        homecounter.setVisibility(View.GONE);
+                    } else {
+                        hamcart.setVisibility(View.VISIBLE);
+                        homecounter.setVisibility(View.VISIBLE);
+                        hamcart.setText(s);
+                        homecounter.setText(s);
+                    }
                 }
 
 

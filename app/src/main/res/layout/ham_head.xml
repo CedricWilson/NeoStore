@@ -28,9 +28,11 @@
         app:layout_constraintTop_toTopOf="parent">
 
         <ImageView
+            android:id="@+id/ivHamPic"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:scaleType="fitCenter"
+            android:background="@color/colorPrimary"
             android:src="@drawable/profile" />
 
 

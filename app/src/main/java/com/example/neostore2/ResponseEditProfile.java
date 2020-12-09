@@ -9,4 +9,5 @@ public class ResponseEditProfile {
     public String getMessage() {
         return message;
     }
+
 }
