@@ -1,0 +1,133 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+
+    android:background="@drawable/gradient"
+    >
+
+
+    <TextView
+        android:id="@+id/tvTitle"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="64dp"
+        android:fontFamily="@font/aristotelica"
+        android:textColor="@color/white"
+        android:text="NeoStore"
+        android:textSize="60dp"
+        android:textStyle="bold"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.496"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <EditText
+        android:id="@+id/etUsername"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+
+        android:layout_marginHorizontal="100px"
+        android:layout_marginTop="112dp"
+
+        android:background="@drawable/inputloginbox"
+
+        android:drawableStart="@drawable/user_foreground"
+        android:drawableTint="@color/white"
+        android:drawablePadding="10dp"
+
+        android:fontFamily="@font/varela"
+        android:hint="Username"
+
+        android:padding="8dp"
+
+        android:textColor="@color/white"
+        android:textColorHint="@color/white"
+        android:textSize="25sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/tvTitle" />
+
+
+    <EditText
+        android:id="@+id/etPassword"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:inputType="textPassword"
+
+
+        android:layout_marginHorizontal="100px"
+        android:layout_marginTop="10dp"
+        android:background="@drawable/inputloginbox"
+        android:drawableStart="@drawable/passicon_foreground"
+        android:drawableTint="@color/white"
+        android:drawablePadding="10dp"
+
+        android:fontFamily="@font/varela"
+        android:hint="Password"
+        android:padding="8dp"
+
+        android:textColor="@color/white"
+        android:textColorHint="@color/white"
+        android:textSize="25sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/etUsername" />
+
+
+    <ImageView
+        android:id="@+id/ivForgotPass"
+        android:layout_width="30dp"
+        android:layout_height="30dp"
+
+        android:layout_marginBottom="5dp"
+        app:layout_constraintBottom_toTopOf="@+id/fabAdd"
+        app:layout_constraintStart_toEndOf="@+id/etPassword"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.484"
+        app:srcCompat="@drawable/question_foreground" />
+
+    <Button
+        android:id="@+id/btLogin"
+        style="?android:attr/borderlessButtonStyle"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+
+
+        android:layout_marginHorizontal="100px"
+        android:layout_marginTop="33dp"
+
+
+        android:background="@drawable/inputloginbox"
+        android:backgroundTint="@color/white"
+
+        android:fontFamily="@font/varela"
+        android:text="LOGIN"
+        android:textColor="@color/colorPrimary"
+        android:textSize="25sp"
+
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/etPassword" />
+
+
+    <com.google.android.material.floatingactionbutton.FloatingActionButton
+        android:id="@+id/fabAdd"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="end|bottom"
+        android:layout_margin="16dp"
+        android:backgroundTint="@color/white"
+        android:contentDescription="Register"
+        app:borderWidth="0dp"
+        android:src="@drawable/adduser_foreground"
+
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintRight_toRightOf="parent" />
+
+
+</androidx.constraintlayout.widget.ConstraintLayout>

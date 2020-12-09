@@ -1,0 +1,108 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.cardview.widget.CardView
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/Card"
+    app:cardElevation="2dp"
+    app:cardCornerRadius="8dp"
+    app:contentPadding="5dp"
+    android:layout_marginTop="4dp"
+    android:layout_marginBottom="1dp"
+    android:layout_marginHorizontal="4dp"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content">
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/Layout"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="horizontal"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+
+        <ImageView
+            android:id="@+id/ivPImage"
+            android:layout_width="240px"
+            android:layout_height="220px"
+            android:layout_marginHorizontal="5dp"
+            android:adjustViewBounds="true"
+            android:scaleType="fitCenter"
+
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintVertical_bias="0.428"
+            tools:srcCompat="@tools:sample/avatars" />
+
+        <TextView
+            android:id="@+id/tvPName"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="10dp"
+            android:layout_marginTop="30px"
+
+            android:fontFamily="@font/varela"
+            android:text="Name"
+            android:textColor="#000000"
+
+
+            android:textSize="45px"
+            app:layout_constraintStart_toEndOf="@+id/ivPImage"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <TextView
+            android:id="@+id/tvProducer"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+
+            android:layout_marginHorizontal="10dp"
+            android:text="Producer"
+            android:textColor="#000000"
+            android:textSize="30px"
+            android:layout_marginTop="24px"
+
+            app:layout_constraintStart_toEndOf="@+id/ivPImage"
+            app:layout_constraintTop_toBottomOf="@+id/tvPName"
+             />
+
+        <TextView
+            android:id="@+id/tvPrice"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginHorizontal="10dp"
+            android:text="Price"
+            android:textColor="@color/red"
+            android:textSize="60px"
+            android:layout_marginTop="25px"
+            android:layout_marginBottom="30px"
+
+
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toEndOf="@+id/ivPImage"
+
+            app:layout_constraintTop_toBottomOf="@+id/tvProducer" />
+
+        <RatingBar
+            android:id="@+id/ratingBar"
+            android:layout_width="wrap_content"
+            android:layout_height="20dp"
+            android:layout_marginBottom="20dp"
+            android:numStars="5"
+            android:progressBackgroundTint="@color/black"
+            style="?android:attr/ratingBarStyleSmall"
+            android:isIndicator="true"
+
+
+            android:progressTint="#ffd700"
+            android:stepSize="0.5"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+
+            app:layout_constraintHorizontal_bias="0.913"
+            app:layout_constraintStart_toEndOf="@+id/tvPrice" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</androidx.cardview.widget.CardView>

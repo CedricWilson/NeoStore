@@ -1,0 +1,340 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+
+    tools:context=".ActivityRegistration">
+
+
+    <androidx.appcompat.widget.Toolbar
+        android:id="@+id/toolbartable"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/colorPrimary"
+        android:gravity="center"
+
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="1.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.0">
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/toolbar"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent">
+
+            <TextView
+                android:id="@+id/tooltext"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:fontFamily="@font/varela"
+                android:gravity="center"
+                android:text="Register"
+                android:textColor="@color/white"
+                android:textSize="35sp"
+                android:textStyle="bold"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <ImageView
+                android:id="@+id/ivBack"
+                android:layout_width="50dp"
+                android:layout_height="50dp"
+                android:layout_marginTop="4dp"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:srcCompat="@drawable/back"
+                tools:ignore="ContentDescription" />
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+
+    </androidx.appcompat.widget.Toolbar>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:background="@drawable/gradient"
+        app:layout_constraintTop_toBottomOf="@id/toolbartable"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        >
+
+        <EditText
+            android:id="@+id/etFirstName"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginHorizontal="100px"
+            android:layout_marginTop="80dp"
+            android:background="@drawable/inputloginbox"
+            android:drawableLeft="@drawable/user_foreground"
+            android:drawableTint="@color/white"
+            android:drawablePadding="10dp"
+            android:fontFamily="@font/varela"
+
+
+            android:hint="First name"
+            android:padding="10dp"
+            android:textColor="@color/white"
+            android:textColorHint="@color/white"
+            app:layout_constraintEnd_toEndOf="parent"
+
+            app:layout_constraintHorizontal_bias="0.578"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+             />
+
+        <EditText
+            android:id="@+id/etLastName"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginHorizontal="100px"
+            android:fontFamily="@font/varela"
+
+
+            android:layout_marginTop="16dp"
+            android:background="@drawable/inputloginbox"
+            android:drawableLeft="@drawable/user_foreground"
+            android:drawablePadding="10dp"
+            android:hint="Last name"
+            android:drawableTint="@color/white"
+
+            android:padding="10dp"
+            android:textColor="@color/white"
+            android:textColorHint="@color/white"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/etFirstName" />
+
+        <EditText
+            android:id="@+id/etMail"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@drawable/inputloginbox"
+            android:drawableLeft="@drawable/email_foreground"
+            android:fontFamily="@font/varela"
+
+            android:drawablePadding="10dp"
+            android:layout_marginHorizontal="100px"
+            android:layout_marginTop="16dp"
+            android:hint="Email"
+            android:padding="10dp"
+            android:drawableTint="@color/white"
+
+
+            android:textColor="@color/white"
+            android:textColorHint="@color/white"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/etLastName" />
+
+        <EditText
+            android:id="@+id/etPassword"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginHorizontal="100px"
+            android:fontFamily="@font/varela"
+
+
+            android:layout_marginTop="16dp"
+            android:background="@drawable/inputloginbox"
+            android:drawableLeft="@drawable/passicon_foreground"
+            android:drawablePadding="10dp"
+            android:hint="Password"
+            android:inputType="textPassword"
+            android:padding="10dp"
+            android:drawableTint="@color/white"
+
+
+            android:textColor="@color/white"
+            android:textColorHint="@color/white"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/etMail" />
+
+        <EditText
+            android:id="@+id/etPasswordConfirm"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginHorizontal="100px"
+            android:fontFamily="@font/varela"
+
+
+            android:layout_marginTop="16dp"
+            android:background="@drawable/inputloginbox"
+            android:drawableLeft="@drawable/passicon_foreground"
+            android:drawablePadding="10dp"
+            android:hint="Confirm Password"
+            android:inputType="textPassword"
+            android:padding="10dp"
+            android:drawableTint="@color/white"
+
+            android:textColor="@color/white"
+            android:textColorHint="@color/white"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/etPassword" />
+
+        <TextView
+            android:id="@+id/tvGender"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginHorizontal="100px"
+            android:layout_marginTop="16dp"
+            android:fontFamily="@font/varela"
+
+
+            android:text="Gender : "
+            android:textColor="@color/white"
+            android:textSize="20sp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/etPasswordConfirm" />
+
+        <RadioGroup
+            android:id="@+id/rgGender"
+            android:layout_width="250dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="4dp"
+            android:layout_marginTop="16dp"
+            android:orientation="horizontal"
+            android:paddingLeft="8dp"
+
+            android:paddingRight="8dp"
+            app:layout_constraintStart_toEndOf="@id/tvGender"
+            app:layout_constraintTop_toBottomOf="@+id/etPasswordConfirm">
+
+            <RadioButton
+                android:id="@+id/radioM"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_gravity="left"
+                android:fontFamily="@font/varela"
+                android:layout_weight="0.5"
+                android:buttonTint="@color/white"
+                android:checked="true"
+                android:text="M"
+                android:textColor="@color/white"
+
+                android:textSize="14dp" />
+
+            <RadioButton
+                android:id="@+id/radioF"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:fontFamily="@font/varela"
+
+                android:layout_gravity="right"
+                android:layout_weight="0.5"
+                android:buttonTint="@color/white"
+                android:checked="false"
+                android:text="F"
+                android:textColor="@color/white"
+                android:textSize="14dp" />
+        </RadioGroup>
+
+        <EditText
+            android:id="@+id/etPhone"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginHorizontal="100px"
+            android:fontFamily="@font/varela"
+
+
+            android:layout_marginTop="16dp"
+            android:background="@drawable/inputloginbox"
+            android:drawableLeft="@drawable/icon_phone"
+            android:drawablePadding="10dp"
+            android:hint="Phone Number"
+            android:inputType="number"
+            android:padding="10dp"
+            android:drawableTint="@color/white"
+
+
+            android:textColor="@color/white"
+            android:textColorHint="@color/white"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/tvGender" />
+
+        <CheckBox
+            android:id="@+id/cbTerms"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="36dp"
+            android:layout_marginTop="20dp"
+
+            android:buttonTint="@color/white"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/etPhone" />
+
+        <TextView
+            android:id="@+id/tvTerms"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="26dp"
+            android:fontFamily="@font/varela"
+
+            android:text="I agree the Terms and Conditions "
+            android:textColor="@color/white"
+            app:layout_constraintStart_toEndOf="@id/cbTerms"
+            app:layout_constraintTop_toBottomOf="@id/etPhone" />
+
+        <Button
+            android:id="@+id/btRegister"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            style="?android:attr/borderlessButtonStyle"
+            android:fontFamily="@font/varela"
+
+            android:layout_marginHorizontal="100px"
+            android:layout_marginTop="33dp"
+
+            android:background="@drawable/inputloginbox"
+            android:text="REGISTER"
+            android:backgroundTint="@color/white"
+
+            android:textColor="@color/colorPrimary"
+            android:textSize="25sp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/tvTerms" />
+
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+
+
+<!--    <androidx.constraintlayout.widget.Guideline-->
+<!--        android:id="@+id/leftGuide"-->
+<!--        android:layout_width="0dp"-->
+<!--        android:layout_height="0dp"-->
+<!--        android:orientation="vertical"-->
+<!--        app:layout_constraintGuide_percent="0.91" />-->
+
+<!--    <androidx.constraintlayout.widget.Guideline-->
+<!--        android:id="@+id/rightGuide"-->
+<!--        android:layout_width="match_parent"-->
+<!--        android:layout_height="wrap_content"-->
+<!--        android:orientation="vertical"-->
+<!--        app:layout_constraintGuide_percent="0.09" />-->
+
+<!--    <androidx.constraintlayout.widget.Guideline-->
+<!--        android:id="@+id/topGuide"-->
+<!--        android:layout_width="wrap_content"-->
+<!--        android:layout_height="wrap_content"-->
+<!--        android:orientation="horizontal"-->
+<!--        app:layout_constraintGuide_percent="0.12"-->
+
+<!--        />-->
+
+
+</androidx.constraintlayout.widget.ConstraintLayout>

@@ -1,0 +1,122 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/Card"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+
+
+
+    app:cardElevation="0dp"
+    app:contentPadding="5dp">
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/Layout"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="horizontal"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <ImageView
+            android:id="@+id/ivOrderPic"
+            android:layout_width="240px"
+            android:layout_height="240px"
+            android:layout_marginHorizontal="5dp"
+            android:layout_marginVertical="7dp"
+            android:adjustViewBounds="true"
+            android:scaleType="fitCenter"
+
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintVertical_bias="0.428"
+            tools:srcCompat="@tools:sample/avatars" />
+
+        <TextView
+            android:id="@+id/tvOrderDName"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="10dp"
+            android:layout_marginTop="17dp"
+
+            android:fontFamily="@font/varela"
+            android:text="Name"
+            android:textColor="#000000"
+
+
+            android:textSize="45px"
+            app:layout_constraintStart_toEndOf="@+id/ivOrderPic"
+            app:layout_constraintTop_toTopOf="parent" />
+
+
+        <TextView
+            android:id="@+id/tvOrderDCategory"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="CAT"
+            android:textStyle="italic"
+
+            android:textSize="30px"
+            android:layout_marginStart="10dp"
+            android:layout_marginTop="5dp"
+
+            app:layout_constraintTop_toBottomOf="@id/tvOrderDName"
+            app:layout_constraintStart_toEndOf="@id/ivOrderPic"
+
+            />
+
+        <TextView
+            android:id="@+id/quantity"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Quantity: "
+            android:textSize="40px"
+            android:layout_marginStart="10dp"
+            android:layout_marginTop="5dp"
+
+            app:layout_constraintTop_toBottomOf="@id/tvOrderDCategory"
+            app:layout_constraintStart_toEndOf="@id/ivOrderPic"
+            app:layout_constraintBottom_toBottomOf="parent"
+            />
+
+        <TextView
+            android:id="@+id/tvOrderDQuantity"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+
+            android:text="Quantity"
+            android:textSize="40px"
+            android:layout_marginBottom="8dp"
+            android:layout_marginStart="3dp"
+
+            app:layout_constraintStart_toEndOf="@+id/quantity"
+            app:layout_constraintBottom_toBottomOf="parent"
+            />
+
+
+
+
+
+
+        <TextView
+            android:id="@+id/tvOrderDPrice"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="24dp"
+            android:text="Price"
+            android:textColor="@color/red"
+            android:textSize="15dp"
+
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintVertical_bias="0.815" />
+
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+
+</androidx.cardview.widget.CardView>

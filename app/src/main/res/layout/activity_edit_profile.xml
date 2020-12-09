@@ -1,0 +1,221 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:background="@drawable/gradient"
+    android:layout_height="match_parent"
+
+    tools:context=".ActivityEditProfile">
+
+    <androidx.appcompat.widget.Toolbar
+        android:id="@+id/hometoolbar"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="#30B1F2"
+
+        app:layout_constraintTop_toTopOf="parent">
+
+        <ImageView
+            android:id="@+id/ivBack"
+            android:layout_width="32dp"
+            android:layout_height="32dp"
+
+            android:layout_marginTop="13dp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:srcCompat="@drawable/back" />
+
+
+        <TextView
+            android:id="@+id/tbProduct"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="left"
+            android:layout_marginLeft="30dp"
+            android:text="Edit Profile"
+            android:textColor="@color/white"
+            android:textSize="30sp"
+            android:textStyle="bold" />
+    </androidx.appcompat.widget.Toolbar>
+
+    <androidx.cardview.widget.CardView
+        android:id="@+id/roundcardView"
+        android:layout_width="150dp"
+        android:layout_height="150dp"
+        android:layout_marginTop="107px"
+        app:cardCornerRadius="100dp"
+        android:elevation="0dp"
+        android:background="@color/transparent"
+
+        app:layout_constraintTop_toBottomOf="@id/hometoolbar"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        >
+
+    <ImageView
+        android:id="@+id/ivEditProfile"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:scaleType="centerCrop"
+        android:src="@drawable/profile" />
+
+    </androidx.cardview.widget.CardView>
+
+    <EditText
+        android:id="@+id/etFirstName"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginHorizontal="100px"
+        android:layout_marginTop="30dp"
+        android:background="@drawable/inputloginbox"
+        android:drawableLeft="@drawable/user_foreground"
+        android:drawableTint="@color/white"
+        android:drawablePadding="10dp"
+
+
+        android:hint="First name"
+        android:padding="10dp"
+        android:textColor="@color/white"
+        android:textColorHint="@color/white"
+        app:layout_constraintEnd_toEndOf="parent"
+
+
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/roundcardView"
+        />
+
+    <EditText
+        android:id="@+id/etLastName"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginHorizontal="100px"
+
+
+        android:layout_marginTop="16dp"
+        android:background="@drawable/inputloginbox"
+        android:drawableLeft="@drawable/user_foreground"
+        android:drawablePadding="10dp"
+        android:hint="Last name"
+        android:drawableTint="@color/white"
+
+        android:padding="10dp"
+        android:textColor="@color/white"
+        android:textColorHint="@color/white"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/etFirstName" />
+
+    <EditText
+        android:id="@+id/etMail"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@drawable/inputloginbox"
+        android:drawableLeft="@drawable/email_foreground"
+
+        android:drawablePadding="10dp"
+        android:layout_marginHorizontal="100px"
+        android:layout_marginTop="16dp"
+        android:hint="Email"
+        android:padding="10dp"
+        android:drawableTint="@color/white"
+
+
+        android:textColor="@color/white"
+        android:textColorHint="@color/white"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/etLastName" />
+
+    <EditText
+        android:id="@+id/etPhone"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginHorizontal="100px"
+
+
+        android:layout_marginTop="16dp"
+        android:background="@drawable/inputloginbox"
+        android:drawableLeft="@drawable/icon_phone"
+        android:drawablePadding="10dp"
+        android:hint="Phone Number"
+        android:inputType="number"
+        android:padding="10dp"
+        android:drawableTint="@color/white"
+
+
+        android:textColor="@color/white"
+        android:textColorHint="@color/white"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/etMail" />
+
+    <EditText
+        android:id="@+id/etBirthday"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+
+        android:clickable="true"
+        android:inputType="number"
+        android:hint="Birthday"
+        android:layout_marginHorizontal="100px"
+        android:textColorHint="@color/white"
+        android:focusable="false"
+        android:textColor="@color/white"
+
+        android:layout_marginTop="16dp"
+        android:background="@drawable/inputloginbox"
+        android:drawableLeft="@drawable/icon_phone"
+        android:drawablePadding="10dp"
+        android:padding="10dp"
+        android:drawableTint="@color/white"
+
+        app:layout_constraintTop_toBottomOf="@+id/etPhone"
+        />
+
+    <Button
+        android:id="@+id/btEditSubmit"
+        style="?android:attr/borderlessButtonStyle"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginHorizontal="100px"
+        android:layout_marginTop="16dp"
+
+        android:background="@drawable/inputloginbox"
+        android:backgroundTint="@color/white"
+        android:text="SUBMIT"
+        android:textColor="@color/black"
+
+
+
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/etBirthday"
+        />
+
+    <androidx.cardview.widget.CardView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+
+        app:layout_constraintBottom_toBottomOf="parent"
+
+        >
+
+        <TextView
+            android:id="@+id/tvResetPass"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Reset Password"
+            android:textSize="20dp"
+            android:textColor="@color/black"
+            android:layout_marginVertical="10dp"
+
+            android:layout_gravity="center"
+            />
+
+
+
+    </androidx.cardview.widget.CardView>
+
+
+</androidx.constraintlayout.widget.ConstraintLayout>
