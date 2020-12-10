@@ -31,6 +31,8 @@ public class ActivityOrderList extends AppCompatActivity {
         setContentView(R.layout.activity_order_list);
 
         retroViewModel = new ViewModelProvider(this).get(RetroViewModel.class);
+        findViewById(R.id.ivBack).setOnClickListener(v -> { finish(); });
+
 
         mRecyclerView = findViewById(R.id.orderRecycler);
         mLayoutManager = new LinearLayoutManager(this);

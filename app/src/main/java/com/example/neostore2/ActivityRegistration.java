@@ -38,13 +38,9 @@ public class ActivityRegistration extends AppCompatActivity {
         CheckBox checkbox = findViewById(R.id.cbTerms);
         RadioGroup rg = findViewById(R.id.rgGender);
         Button register = findViewById(R.id.btRegister);
-        ImageView back = findViewById(R.id.ivBack);
 
+        findViewById(R.id.ivBack).setOnClickListener(v -> { finish(); });
 
-        back.setOnClickListener(v -> {
-            Intent i = new Intent(ActivityRegistration.this, ActivityLogin.class);
-            startActivity(i);
-        });
 
 
         register.setOnClickListener(v -> {

@@ -60,6 +60,13 @@ public class ActivityDetails extends AppCompatActivity {
         mLayoutManager = new LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false);
         mRecyclerView.setLayoutManager(mLayoutManager);
 
+        findViewById(R.id.ivBack).setOnClickListener(v -> { finish(); });
+        findViewById(R.id.cart).setOnClickListener(v -> {
+            Intent cart = new Intent(ActivityDetails.this, ActivityCart.class);
+            startActivity(cart);
+
+        });
+
         //cart coun
         String tok = HelperShared.Helper.getInstance(this).fetchUser().getToken();
         cartcounter(tok);

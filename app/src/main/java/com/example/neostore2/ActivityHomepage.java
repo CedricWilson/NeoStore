@@ -60,16 +60,14 @@ public class ActivityHomepage extends AppCompatActivity implements View.OnClickL
 
         NavigationView navigationView = findViewById(R.id.nvHome);
         View hView = navigationView.getHeaderView(0);
-        ImageView hampic = hView.findViewById(R.id.ivHamPic);
         TextView hamname = hView.findViewById(R.id.hamName);
         TextView hammail = hView.findViewById(R.id.hamMail);
 
 
         hamname.setText(HelperShared.Helper.getInstance(getApplicationContext()).fetchUser().getFirstname() + " " + HelperShared.Helper.getInstance(getApplicationContext()).fetchUser().getLastname());
         hammail.setText(HelperShared.Helper.getInstance(getApplicationContext()).fetchUser().getEmail());
-        String pic = HelperShared.Helper.getInstance(getApplicationContext()).fetchUser().getPic();
+        hampicupdate();
 
-        Glide.with(this).load(pic).into(hampic);
         String tok = HelperShared.Helper.getInstance(this).fetchUser().getToken();
         cartcounter(tok);
 
@@ -115,6 +113,8 @@ public class ActivityHomepage extends AppCompatActivity implements View.OnClickL
             startActivity(cart1);
 
         });
+
+
 
         TextView v = findViewById(R.id.toolbar_title);
         v.setOnClickListener(new View.OnClickListener() {
@@ -181,6 +181,20 @@ public class ActivityHomepage extends AppCompatActivity implements View.OnClickL
                 return true;
             }
         });
+
+    }
+
+    private void hampicupdate() {
+        NavigationView navigationView = findViewById(R.id.nvHome);
+        View hView = navigationView.getHeaderView(0);
+        ImageView hampic = hView.findViewById(R.id.ivHamPic);
+
+        String pic = HelperShared.Helper.getInstance(getApplicationContext()).fetchUser().getPic();
+
+        if(!pic.isEmpty()){
+            Glide.with(this).load(pic).into(hampic);
+        }
+
 
     }
 

@@ -28,7 +28,7 @@
         <item
             android:id="@+id/myAccount"
             android:icon="@drawable/user_icon"
-            android:title="My Account" />
+            android:title="Edit Profile" />
         <item
             android:id="@+id/storelocator"
             android:icon="@drawable/pin_foreground"

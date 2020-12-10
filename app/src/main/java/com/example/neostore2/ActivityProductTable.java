@@ -6,6 +6,8 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.view.View;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import java.text.NumberFormat;
@@ -45,6 +47,8 @@ public class ActivityProductTable extends AppCompatActivity {
 
         jsonparse();
 
+
+        findViewById(R.id.ivBack).setOnClickListener(v -> { finish(); });
 
     }
 

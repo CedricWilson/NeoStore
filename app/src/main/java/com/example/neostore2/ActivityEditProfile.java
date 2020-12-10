@@ -20,6 +20,9 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.bumptech.glide.Glide;
+import com.google.android.material.navigation.NavigationView;
+
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 import java.text.SimpleDateFormat;
@@ -51,6 +54,7 @@ public class ActivityEditProfile extends AppCompatActivity {
         String deflname = HelperShared.Helper.getInstance(getApplicationContext()).fetchUser().getLastname();
         String defemail = HelperShared.Helper.getInstance(getApplicationContext()).fetchUser().getEmail();
         String defphone = HelperShared.Helper.getInstance(getApplicationContext()).fetchUser().getPhone();
+        picupdate();
 
         EditText firstnamebox = findViewById(R.id.etFirstName);
         EditText lastnamebox = findViewById(R.id.etLastName);
@@ -58,10 +62,13 @@ public class ActivityEditProfile extends AppCompatActivity {
         EditText phonebox = findViewById(R.id.etPhone);
         EditText birthdaybox= findViewById(R.id.etBirthday);
 
+
         firstnamebox.setText(deffname);
         lastnamebox.setText(deflname);
         emailbox.setText(defemail);
         phonebox.setText(defphone);
+
+        findViewById(R.id.ivBack).setOnClickListener(v -> { finish(); });
 
         final Calendar myCalendar = Calendar.getInstance();
 
@@ -120,6 +127,9 @@ public class ActivityEditProfile extends AppCompatActivity {
                         public void onChanged(ResponseEditProfile responseEditProfile) {
                             String s = responseEditProfile.getMessage();
                             Toast.makeText(ActivityEditProfile.this, s, Toast.LENGTH_SHORT).show();
+                            String edit = responseEditProfile.getData().getPic();
+                            HelperShared.Helper.getInstance(getApplicationContext()).updateImage(edit,"1");
+
 
                         }
                     });
@@ -193,6 +203,18 @@ public class ActivityEditProfile extends AppCompatActivity {
         birthday = sdf.format(myCalendar.getTime());
 
         edittext.setText(sdf.format(myCalendar.getTime()));
+    }
+
+    private void picupdate() {
+        ImageView ppic = findViewById(R.id.ivEditProfile);
+
+        String pic = HelperShared.Helper.getInstance(getApplicationContext()).fetchUser().getPic();
+
+        if(!pic.isEmpty()){
+            Glide.with(this).load(pic).into(ppic);
+        }
+
+
     }
 }
 

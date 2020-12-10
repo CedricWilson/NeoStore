@@ -41,6 +41,8 @@ public class ActivityAddAddress extends AppCompatActivity {
             }
         });
 
+        findViewById(R.id.ivBack).setOnClickListener(v -> { finish(); });
+
 
     }
 

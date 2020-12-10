@@ -35,6 +35,7 @@ public class ActivityCart extends AppCompatActivity {
         mRecyclerView.setLayoutManager(mLayoutManager);
         int check = 0;
 
+        findViewById(R.id.ivBack).setOnClickListener(v -> { finish(); });
 
         Button submit = findViewById(R.id.btRSubmit);
         submit.setOnClickListener(new View.OnClickListener() {

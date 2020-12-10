@@ -40,6 +40,8 @@ public class ActivityAddress extends AppCompatActivity {
                 startActivityForResult(create, ADD_NOTE_REQ);
             }
         });
+        findViewById(R.id.ivBack).setOnClickListener(v -> { finish(); });
+
 
         RecyclerView mRecycler = findViewById(R.id.AddressRecycler);
         mRecycler.setLayoutManager(new LinearLayoutManager(this));

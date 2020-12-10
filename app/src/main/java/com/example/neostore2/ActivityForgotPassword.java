@@ -17,6 +17,7 @@ public class ActivityForgotPassword extends AppCompatActivity {
         setContentView(R.layout.activity_forgot_password);
 
         model = new ViewModelProvider(this).get(RetroViewModel.class);
+        findViewById(R.id.ivBack).setOnClickListener(v -> { finish(); });
 
         EditText emailbox = findViewById(R.id.etMail);
         Button submit = findViewById(R.id.btSubmit);

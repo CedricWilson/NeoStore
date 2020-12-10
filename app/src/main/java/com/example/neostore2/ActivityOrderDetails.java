@@ -26,6 +26,8 @@ public class ActivityOrderDetails extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_order_details);
         model = new ViewModelProvider(this).get(RetroViewModel.class);
+        findViewById(R.id.ivBack).setOnClickListener(v -> { finish(); });
+
 
         mRecyclerView = findViewById(R.id.orderDetailRecycler);
         mLayoutManager = new LinearLayoutManager(this);

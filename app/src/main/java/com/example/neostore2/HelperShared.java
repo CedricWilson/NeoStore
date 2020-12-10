@@ -45,6 +45,8 @@ public class HelperShared {
         editor.apply();
     }
 
+
+
     public final DataLogin fetchUser(){
         SharedPreferences sharedPreferences = context.getSharedPreferences(SHARED_PREF_NAME, 0);
         return new DataLogin(
@@ -58,6 +60,16 @@ public class HelperShared {
                 sharedPreferences.getString("pic", "")
         );
 
+    }
+
+    public final void updateImage(String image,String num) {
+        SharedPreferences sharedPreferences = this.context.getSharedPreferences(SHARED_PREF_NAME, 0);
+        SharedPreferences.Editor editor = sharedPreferences.edit();
+
+        editor.putString("pic", image);
+        editor.putString("picedited",num);
+
+        editor.apply();
     }
 
     public final void clear() {

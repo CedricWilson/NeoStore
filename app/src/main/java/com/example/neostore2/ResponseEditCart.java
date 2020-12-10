@@ -10,11 +10,6 @@ public class ResponseEditCart {
         return message;
     }
 
-    @SerializedName("data")
-    private DataEditProfile data;
 
-    public DataEditProfile getData() {
-        return data;
-    }
 
 }

@@ -6,4 +6,7 @@ public class DataEditProfile {
     @SerializedName("profile_pic")
     private String pic;
 
+    public String getPic() {
+        return pic;
+    }
 }

@@ -79,21 +79,6 @@ public class AdapterProduct extends RecyclerView.Adapter<AdapterProduct.ExampleV
         });
 
 
-//        holder.itemView.setOnClickListener(v -> {
-//
-//            SharedPreferences sharedPreferences = context.getSharedPreferences(SHARED_PREFS, Context.MODE_PRIVATE);
-//            SharedPreferences.Editor editor = sharedPreferences.edit();
-//            editor.putString(fname, currentItem.getFirst_name());
-//            editor.putString(sname, currentItem.getLast_name());
-//            editor.putString(mail, currentItem.getEmail());
-//            editor.putString(avatar, currentItem.getAvatar());
-//            editor.apply();
-//
-//            Intent i = new Intent(context , Details.class);
-//            context.startActivity(i);
-//
-//        });
-
 
     }
 
