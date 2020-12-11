@@ -44,8 +44,11 @@ public class ActivityCart extends AppCompatActivity {
         mRecyclerView = findViewById(R.id.cartRecycler);
         mLayoutManager = new LinearLayoutManager(this);
         mRecyclerView.setLayoutManager(mLayoutManager);
+
         findViewById(R.id.ivBack).setOnClickListener(v -> {
-            finish();
+            Intent home =new Intent(ActivityCart.this, ActivityHomepage.class);
+            startActivity(home);
+            overridePendingTransition(R.anim.slide_in_left, R.anim.slide_out_right);
         });
 
         model = new ViewModelProvider(this).get(RetroViewModel.class);
@@ -119,6 +122,7 @@ public class ActivityCart extends AppCompatActivity {
             } else {
                 Intent address = new Intent(ActivityCart.this, ActivityAddress.class);
                 startActivity(address);
+                overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left);
             }
         });
     }
@@ -192,6 +196,12 @@ public class ActivityCart extends AppCompatActivity {
     private String format(String amount) {
         int number = Integer.valueOf(amount);
         return NumberFormat.getNumberInstance(new Locale("en", "in")).format(number);
+    }
+
+    @Override
+    public void onBackPressed() {
+        finish();
+        overridePendingTransition(R.anim.slide_in_left, R.anim.slide_out_right);
     }
 
 }

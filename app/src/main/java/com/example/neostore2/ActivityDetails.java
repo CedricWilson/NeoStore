@@ -67,11 +67,13 @@ public class ActivityDetails extends AppCompatActivity {
 
         findViewById(R.id.ivBack).setOnClickListener(v -> {
             finish();
+            overridePendingTransition(R.anim.slide_in_left, R.anim.slide_out_right);
         });
+
         findViewById(R.id.cart).setOnClickListener(v -> {
             Intent cart = new Intent(ActivityDetails.this, ActivityCart.class);
             startActivity(cart);
-
+            overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left);
         });
 
         //cart coun
@@ -141,63 +143,6 @@ public class ActivityDetails extends AppCompatActivity {
             }
         });
 
-//        Call<ResponseDetails> call = RetrofitClient.getInstance().getApi()
-//                .getDetails(id);
-//
-//        call.enqueue(new Callback<ResponseDetails>() {
-//            @Override
-//            public void onResponse(Call<ResponseDetails> call, Response<ResponseDetails> response) {
-//                TextView name = findViewById(R.id.tvDname);
-//                TextView producer = findViewById(R.id.tvDproducer);
-//                TextView cat = findViewById(R.id.tvDcategory);
-//                TextView price = findViewById(R.id.tvDprice);
-//                TextView description = findViewById(R.id.tvDdescription);
-//                RatingBar ratingBar = findViewById(R.id.DratingBar);
-//                ImageView mainpic = findViewById(R.id.ivDpic);
-//
-//                DataDetails data = response.body().getData();
-//
-//                String id = data.getId();
-//                name.setText(data.getName());
-//                producer.setText(data.getProducer());
-//                price.setText("Rs." + " " + format(data.getCost()));
-//                ratingBar.setRating(data.getRating());
-//
-//                String i = data.getCid();
-//
-//                switch (i) {
-//                    case "1":
-//                        cat.setText("Table");
-//                        break;
-//                    case "2":
-//                        cat.setText("Chair");
-//                        break;
-//                    case "3":
-//                        cat.setText("Sofa");
-//                        break;
-//                    case "4":
-//                        cat.setText("Bed");
-//                        break;
-//                }
-//                description.setText(data.getDescription());
-//                description.setMovementMethod(new ScrollingMovementMethod());
-//
-//                String s = data.getProduct_images().get(0).getImage();
-//                Glide.with(getApplicationContext()).load(s).into(mainpic);
-//
-//                List<DataProductImages> imagelist = data.getProduct_images();
-//                mAdapter = new AdapterImage(imagelist, ActivityDetails.this, mainpic);
-//                mRecyclerView.setAdapter(mAdapter);
-//
-//                buy.setOnClickListener(v -> { buyClick(data,s); });
-//                rate.setOnClickListener(v -> { rateClick(data,s,id); });
-//            }
-//
-//            @Override
-//            public void onFailure(Call<ResponseDetails> call, Throwable t) {
-//                Log.d("main", "Failed");
-//            }
-//        });
 
 
     }
@@ -342,6 +287,12 @@ public class ActivityDetails extends AppCompatActivity {
     private String format(String amount) {
         int number = Integer.valueOf(amount);
         return NumberFormat.getNumberInstance(new Locale("en", "in")).format(number);
+    }
+
+    @Override
+    public void onBackPressed() {
+        finish();
+        overridePendingTransition(R.anim.slide_in_left, R.anim.slide_out_right);
     }
 
 }

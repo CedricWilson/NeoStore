@@ -36,6 +36,8 @@ public class ActivityAddAddress extends AppCompatActivity {
                 saveNote(email, name);
 
                 finish();
+                overridePendingTransition(R.anim.slide_in_left, R.anim.slide_out_right);
+
             }
         });
 
@@ -58,5 +60,11 @@ public class ActivityAddAddress extends AppCompatActivity {
         data.putExtra(EXTRA_EMAIL, email);
 
         setResult(RESULT_OK, data);
+    }
+
+    @Override
+    public void onBackPressed() {
+        finish();
+        overridePendingTransition(R.anim.slide_in_left, R.anim.slide_out_right);
     }
 }

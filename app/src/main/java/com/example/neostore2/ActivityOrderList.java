@@ -55,6 +55,7 @@ public class ActivityOrderList extends AppCompatActivity {
     public void onBackPressed() {
         Intent home = new Intent(ActivityOrderList.this, ActivityHomepage.class);
         startActivity(home);
+        overridePendingTransition(R.anim.slide_in_left, R.anim.slide_out_right);
     }
 
 

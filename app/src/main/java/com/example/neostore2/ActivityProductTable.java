@@ -44,8 +44,10 @@ public class ActivityProductTable extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_product_table);
+
         findViewById(R.id.ivBack).setOnClickListener(v -> {
             finish();
+            overridePendingTransition(R.anim.slide_in_left, R.anim.slide_out_right);
         });
 
         Toolbar toolbar = findViewById(R.id.hometoolbar);
@@ -118,5 +120,11 @@ public class ActivityProductTable extends AppCompatActivity {
         });
 
         return true;
+    }
+
+    @Override
+    public void onBackPressed() {
+        finish();
+        overridePendingTransition(R.anim.slide_in_left, R.anim.slide_out_right);
     }
 }

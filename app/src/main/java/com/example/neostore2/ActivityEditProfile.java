@@ -126,8 +126,7 @@ public class ActivityEditProfile extends AppCompatActivity {
                             Toast.makeText(ActivityEditProfile.this, s, Toast.LENGTH_SHORT).show();
                             String edit = responseEditProfile.getData().getPic();
                             HelperShared.Helper.getInstance(getApplicationContext()).updateImage(edit,"1");
-
-
+                            overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left);
                         }
                     });
 
@@ -145,6 +144,7 @@ public class ActivityEditProfile extends AppCompatActivity {
             public void onClick(View v) {
                 Intent reset = new Intent(ActivityEditProfile.this, ActivityChangePassword.class);
                 startActivity(reset);
+                overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left);
             }
         });
 
@@ -212,6 +212,12 @@ public class ActivityEditProfile extends AppCompatActivity {
         }
 
 
+    }
+
+    @Override
+    public void onBackPressed() {
+        finish();
+        overridePendingTransition(R.anim.slide_in_left, R.anim.slide_out_right);
     }
 }
 

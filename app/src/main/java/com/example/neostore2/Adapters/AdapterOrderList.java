@@ -65,6 +65,7 @@ public class AdapterOrderList extends RecyclerView.Adapter<AdapterOrderList.Exam
                 Intent orderdetail = new Intent(context, ActivityOrderDetails.class);
                 orderdetail.putExtra("id", currentItem.getId());
                 context.startActivity(orderdetail);
+                context.overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left);
             }
         });
 

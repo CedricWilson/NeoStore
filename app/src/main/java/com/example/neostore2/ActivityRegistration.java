@@ -37,7 +37,10 @@ public class ActivityRegistration extends AppCompatActivity {
         RadioGroup rg = findViewById(R.id.rgGender);
         Button register = findViewById(R.id.btRegister);
 
-        findViewById(R.id.ivBack).setOnClickListener(v -> { finish(); });
+        findViewById(R.id.ivBack).setOnClickListener(v -> {
+            finish();
+            overridePendingTransition(R.anim.slide_in_left, R.anim.slide_out_right);
+        });
 
         register.setOnClickListener(v -> {
 
@@ -127,9 +130,17 @@ public class ActivityRegistration extends AppCompatActivity {
                                 i.putExtra("email", email);
                                 i.putExtra("password", password);
                                 startActivity(i);
+                                overridePendingTransition(R.anim.slide_in_left, R.anim.slide_out_right);
                             }
                         }
                     });
         });
     }
+
+    @Override
+    public void onBackPressed() {
+        finish();
+        overridePendingTransition(R.anim.slide_in_left, R.anim.slide_out_right);
+    }
 }
+

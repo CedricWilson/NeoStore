@@ -189,7 +189,10 @@ public class RetroRepo {
             @Override
             public void onResponse(Call<ResponseCart> call, Response<ResponseCart> response) {
 
-                cartcount.postValue(response.body().getCount());
+                if(response.isSuccessful()){
+                    cartcount.postValue(response.body().getCount());
+               }
+
 
             }
 

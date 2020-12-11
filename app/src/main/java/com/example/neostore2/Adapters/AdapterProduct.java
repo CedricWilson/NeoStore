@@ -89,6 +89,7 @@ public class AdapterProduct extends RecyclerView.Adapter<AdapterProduct.ExampleV
             Intent details = new Intent(context, ActivityDetails.class);
             details.putExtra("id", currentItem.getId());
             context.startActivity(details);
+            context.overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left);
         });
 
 

@@ -1,5 +1,13 @@
 package com.example.neostore2;
 
+import android.content.Intent;
+import android.os.Bundle;
+import android.view.View;
+import android.widget.Button;
+import android.widget.ImageView;
+import android.widget.TextView;
+import android.widget.Toast;
+
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
@@ -8,14 +16,6 @@ import androidx.lifecycle.ViewModelProvider;
 import androidx.recyclerview.widget.ItemTouchHelper;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
-
-import android.content.Intent;
-import android.os.Bundle;
-import android.view.View;
-import android.widget.Button;
-import android.widget.ImageView;
-import android.widget.TextView;
-import android.widget.Toast;
 
 import com.example.neostore2.Helpers.HelperShared;
 import com.example.neostore2.Helpers.NoteViewModel;
@@ -34,15 +34,23 @@ public class ActivityAddress extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_address);
 
+        findViewById(R.id.ivBack).setOnClickListener(v -> {
+            finish();
+            overridePendingTransition(R.anim.slide_in_left, R.anim.slide_out_right);
+        });
+
         ImageView add = findViewById(R.id.ivAddAddress);
         add.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 Intent create = new Intent(ActivityAddress.this, ActivityAddAddress.class);
                 startActivityForResult(create, ADD_NOTE_REQ);
+                overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left);
             }
         });
-        findViewById(R.id.ivBack).setOnClickListener(v -> { finish(); });
+        findViewById(R.id.ivBack).setOnClickListener(v -> {
+            finish();
+        });
 
 
         RecyclerView mRecycler = findViewById(R.id.AddressRecycler);
@@ -66,7 +74,7 @@ public class ActivityAddress extends AppCompatActivity {
         });
 
         String address = adapter.getItemAt();
-        if (address==null){
+        if (address == null) {
             mRecycler.setVisibility(View.INVISIBLE);
             TextView tv = findViewById(R.id.tvEmptyAddress);
             tv.setVisibility(View.VISIBLE);
@@ -75,7 +83,7 @@ public class ActivityAddress extends AppCompatActivity {
         adapter.getItemCount();
 
 
-        new ItemTouchHelper(new ItemTouchHelper.SimpleCallback(0, ItemTouchHelper.LEFT| ItemTouchHelper.RIGHT) {
+        new ItemTouchHelper(new ItemTouchHelper.SimpleCallback(0, ItemTouchHelper.LEFT | ItemTouchHelper.RIGHT) {
             @Override
             public boolean onMove(@NonNull RecyclerView recyclerView, @NonNull RecyclerView.ViewHolder viewHolder, @NonNull RecyclerView.ViewHolder target) {
                 return false;
@@ -83,8 +91,8 @@ public class ActivityAddress extends AppCompatActivity {
 
             @Override
             public void onSwiped(@NonNull RecyclerView.ViewHolder viewHolder, int direction) {
-                    noteViewModel.delete(adapter.getNoteAt(viewHolder.getAdapterPosition()));
-                    Toast.makeText(ActivityAddress.this, "Address Deleted", Toast.LENGTH_SHORT).show();
+                noteViewModel.delete(adapter.getNoteAt(viewHolder.getAdapterPosition()));
+                Toast.makeText(ActivityAddress.this, "Address Deleted", Toast.LENGTH_SHORT).show();
             }
 
         }).attachToRecyclerView(mRecycler);
@@ -95,17 +103,17 @@ public class ActivityAddress extends AppCompatActivity {
             public void onClick(View v) {
 
                 String address = adapter.getItemAt();
-                if(address.equals("")){
+                if (address.equals("")) {
                     Toast.makeText(ActivityAddress.this, "Enter an Address", Toast.LENGTH_SHORT).show();
-                }
-                else{
+                } else {
                     retroViewModel.getOrderplace(token, address).observe(ActivityAddress.this, new Observer<ResponseOrder>() {
                         @Override
                         public void onChanged(ResponseOrder responseOrder) {
-                                String toast = responseOrder.getUser_msg();
-                                Toast.makeText(ActivityAddress.this, toast, Toast.LENGTH_SHORT).show();
-                                Intent order = new Intent(ActivityAddress.this, ActivityOrderList.class);
-                                startActivity(order);
+                            String toast = responseOrder.getUser_msg();
+                            Toast.makeText(ActivityAddress.this, toast, Toast.LENGTH_SHORT).show();
+                            Intent order = new Intent(ActivityAddress.this, ActivityOrderList.class);
+                            startActivity(order);
+                            overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left);
                         }
                     });
 
@@ -115,10 +123,16 @@ public class ActivityAddress extends AppCompatActivity {
     }
 
     @Override
+    public void onBackPressed() {
+        finish();
+        overridePendingTransition(R.anim.slide_in_left, R.anim.slide_out_right);
+    }
+
+    @Override
     protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
 
-        if (requestCode == ADD_NOTE_REQ && resultCode == RESULT_OK){
+        if (requestCode == ADD_NOTE_REQ && resultCode == RESULT_OK) {
             String name = data.getStringExtra(ActivityAddAddress.EXTRA_NAME);
             String email = data.getStringExtra(ActivityAddAddress.EXTRA_EMAIL);
             String address = data.getStringExtra(ActivityAddAddress.EXTRA_ADDRESS);
@@ -127,8 +141,7 @@ public class ActivityAddress extends AppCompatActivity {
             noteViewModel.insert(note);
 
             Toast.makeText(this, "Address Saved", Toast.LENGTH_SHORT).show();
-        }
-        else {
+        } else {
             Toast.makeText(this, "Invalid Address", Toast.LENGTH_SHORT).show();
         }
     }

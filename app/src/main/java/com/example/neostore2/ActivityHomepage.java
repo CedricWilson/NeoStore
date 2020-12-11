@@ -29,7 +29,7 @@ import java.util.TimerTask;
 
 public class ActivityHomepage extends AppCompatActivity implements View.OnClickListener {
     final long DELAY_MS = 500;//delay in milliseconds before task is to be executed
-    final long PERIOD_MS = 2800;
+    final long PERIOD_MS = 3000;
     Context context;
     int currentPage = 0;
     Timer timer;
@@ -73,7 +73,10 @@ public class ActivityHomepage extends AppCompatActivity implements View.OnClickL
         hampicupdate();
 
         String tok = HelperShared.Helper.getInstance(this).fetchUser().getToken();
-        cartcounter(tok);
+        if(!tok.equals("")){
+            cartcounter(tok);
+        }
+
 
 
         //
@@ -115,6 +118,7 @@ public class ActivityHomepage extends AppCompatActivity implements View.OnClickL
         homecart.setOnClickListener(v -> {
             Intent cart1 = new Intent(this, ActivityCart.class);
             startActivity(cart1);
+            overridePendingTransition(R.anim.slide_in_left, R.anim.slide_out_right);
 
         });
 
@@ -125,21 +129,9 @@ public class ActivityHomepage extends AppCompatActivity implements View.OnClickL
             public void onClick(View v) {
                 Intent profile = new Intent(ActivityHomepage.this, ActivityChangePassword.class);
                 startActivity(profile);
+                overridePendingTransition(R.anim.slide_in_left, R.anim.slide_out_right);
             }
         });
-
-
-        //  six.setText(HelperShared.Companion.getInstance(context).fetchUser().getToken());
-
-//        log.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View v) {
-//                HelperShared.Companion.getInstance(context).clear();
-//                Intent logout = new Intent(getApplicationContext(), ActivityLogin.class);
-//                logout.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
-//                startActivity(logout);
-//            }
-//        });
 
         navigationView.setNavigationItemSelectedListener(new NavigationView.OnNavigationItemSelectedListener() {
             @Override
@@ -150,6 +142,7 @@ public class ActivityHomepage extends AppCompatActivity implements View.OnClickL
                     case R.id.MyCart:
                         Intent cart = new Intent(getApplicationContext(), ActivityCart.class);
                         startActivity(cart);
+                        overridePendingTransition(R.anim.slide_in_left, R.anim.slide_out_right);
                         break;
 
                     case R.id.myorders:
@@ -159,6 +152,7 @@ public class ActivityHomepage extends AppCompatActivity implements View.OnClickL
                     case R.id.myAccount:
                         Intent account = new Intent(getApplicationContext(), ActivityEditProfile.class);
                         startActivity(account);
+                        overridePendingTransition(R.anim.slide_in_left, R.anim.slide_out_right);
                         break;
                     case R.id.Tables:
                         furniture("1");
@@ -236,6 +230,7 @@ public class ActivityHomepage extends AppCompatActivity implements View.OnClickL
         Intent ptable = new Intent(this, ActivityProductTable.class);
         ptable.putExtra("id", id);
         startActivity(ptable);
+        overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left);
     }
 
     private void cartcounter(String token) {

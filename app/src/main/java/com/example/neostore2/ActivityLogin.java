@@ -89,6 +89,10 @@ public class ActivityLogin extends AppCompatActivity implements View.OnClickList
                 Intent home = new Intent(getApplicationContext(), ActivityHomepage.class);
                 home.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
                 startActivity(home);
+
+
+
+
             }
 
         });
@@ -98,12 +102,14 @@ public class ActivityLogin extends AppCompatActivity implements View.OnClickList
     private void register() {
         Intent intentregister = new Intent(ActivityLogin.this, ActivityRegistration.class);
         startActivity(intentregister);
+        overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left);
     }
 
     private void forgot() {
 
         Intent forgot = new Intent(ActivityLogin.this, ActivityForgotPassword.class);
         startActivity(forgot);
+        overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left);
 
     }
 

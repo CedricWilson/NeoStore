@@ -32,8 +32,11 @@ public class ActivityOrderDetails extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_order_details);
         model = new ViewModelProvider(this).get(RetroViewModel.class);
-        findViewById(R.id.ivBack).setOnClickListener(v -> { finish(); });
 
+        findViewById(R.id.ivBack).setOnClickListener(v -> {
+            finish();
+            overridePendingTransition(R.anim.slide_in_left, R.anim.slide_out_right);
+        });
 
         mRecyclerView = findViewById(R.id.orderDetailRecycler);
         mLayoutManager = new LinearLayoutManager(this);
@@ -66,6 +69,12 @@ public class ActivityOrderDetails extends AppCompatActivity {
             }
         });
 
+    }
+
+    @Override
+    public void onBackPressed() {
+        finish();
+        overridePendingTransition(R.anim.slide_in_left, R.anim.slide_out_right);
     }
 
     private String format(String amount) {
