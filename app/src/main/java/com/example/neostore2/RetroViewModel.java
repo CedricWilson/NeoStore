@@ -15,18 +15,55 @@ public class RetroViewModel extends AndroidViewModel {
 
     private final RetroRepo retroRepo;
     private MutableLiveData<ResponseOrder> orderplace = new MutableLiveData<>();
-    private MutableLiveData<DataLogin> dataL = new MutableLiveData<>();
-
 
     public RetroViewModel(@NonNull Application application) {
         super(application);
         retroRepo = new RetroRepo(application);
     }
 
+    public String editcart(String token,String id,String quanitity){
+        return retroRepo.getEditCart(token, id, quanitity);
+    }
+
+    public String deletecart(String token,String id){
+        return retroRepo.getDeletecart(token, id);
+    }
+
+    public MutableLiveData<ResponseCart> listcart(String token){
+        return retroRepo.getListcart(token);
+    }
+
+    public MutableLiveData<String> addcart(String token, String id, String quantity){
+        return retroRepo.getAddcart(token, id, quantity);
+    }
+
+    public String testrate(String id,String rate){
+        return retroRepo.getTestrate(id, rate);
+    }
+
+    public MutableLiveData<ResponseDetails> productdetails(String id){
+        return retroRepo.getDetails(id);
+    }
+
+    public MutableLiveData<List<DataProduct>> listproduct(String val){
+        return retroRepo.getProductList(val);
+    }
+
+    public MutableLiveData<String> cartcount(String token){
+        return retroRepo.getCartcount(token);
+    }
+
+    public MutableLiveData<ResponseLogin> login(String email, String password){
+        return retroRepo.login(email, password);
+    }
+
+    public MutableLiveData<ResponseRegistration> register(String firstname, String lastname, String email, String password, String confirm, String gender, String phone){
+        return retroRepo.getRegister(firstname, lastname, email, password, confirm, gender, phone);
+    }
+
     public LiveData<ResponseForgotPassword> getForgotPass(String email){
         return retroRepo.getForgotPass(email);
     }
-
 
     public MutableLiveData<ResponseChangePassword> getChangePassword(String token, String old, String pass, String confirm){
         return retroRepo.getChangePass(token, old, pass, confirm);
@@ -54,13 +91,6 @@ public class RetroViewModel extends AndroidViewModel {
         return retroRepo.getOrderplace(token, address);
     }
 
-//    public DataLogin getLoginD(String email, String password){
-//        return  retroRepo.getLoginD(email,password);
-//    }
-
-    public MutableLiveData<DataLogin> getLoginD(String email, String password) {
-        return retroRepo.getDataL(email, password);
-    }
 
 
 }

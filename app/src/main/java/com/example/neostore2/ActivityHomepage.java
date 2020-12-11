@@ -13,6 +13,8 @@ import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.view.GravityCompat;
 import androidx.drawerlayout.widget.DrawerLayout;
+import androidx.lifecycle.Observer;
+import androidx.lifecycle.ViewModelProvider;
 import androidx.viewpager.widget.ViewPager;
 
 import com.bumptech.glide.Glide;
@@ -21,10 +23,6 @@ import com.rd.PageIndicatorView;
 
 import java.util.Timer;
 
-import retrofit2.Call;
-import retrofit2.Callback;
-import retrofit2.Response;
-
 public class ActivityHomepage extends AppCompatActivity implements View.OnClickListener {
     final long DELAY_MS = 500;//delay in milliseconds before task is to be executed
     final long PERIOD_MS = 3000;
@@ -32,13 +30,15 @@ public class ActivityHomepage extends AppCompatActivity implements View.OnClickL
     int currentPage = 0;
     Timer timer;
     DrawerLayout drawerLayout;
-
+    private RetroViewModel model;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         setTheme(R.style.AppTheme_NoActionBar);
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_homepage);
+
+        model = new ViewModelProvider(this).get(RetroViewModel.class);
 
         if (!HelperShared.Helper.getInstance(this).isLoggedIn()) {
 
@@ -113,7 +113,6 @@ public class ActivityHomepage extends AppCompatActivity implements View.OnClickL
             startActivity(cart1);
 
         });
-
 
 
         TextView v = findViewById(R.id.toolbar_title);
@@ -191,7 +190,7 @@ public class ActivityHomepage extends AppCompatActivity implements View.OnClickL
 
         String pic = HelperShared.Helper.getInstance(getApplicationContext()).fetchUser().getPic();
 
-        if(!pic.isEmpty()){
+        if (!pic.isEmpty()) {
             Glide.with(this).load(pic).into(hampic);
         }
 
@@ -236,40 +235,61 @@ public class ActivityHomepage extends AppCompatActivity implements View.OnClickL
     }
 
     private void cartcounter(String token) {
-        Call<ResponseCart> call2 = RetrofitClient.getInstance().getApi()
-                .listcart(token);
 
-        call2.enqueue(new Callback<ResponseCart>() {
+        model.cartcount(token).observe(this, new Observer<String>() {
             @Override
-            public void onResponse(Call<ResponseCart> call, Response<ResponseCart> response) {
+            public void onChanged(String s) {
+                NavigationView navigationView = findViewById(R.id.nvHome);
+                TextView hamcart = navigationView.getMenu().findItem(R.id.MyCart).getActionView().findViewById(R.id.counter);
+                TextView homecounter = findViewById(R.id.tvCartCount);
 
-                if (response.isSuccessful()) {
-                    String s = response.body().getCount();
-                    HelperShared.Helper.getInstance(getApplicationContext()).updateCount(s);
-
-                    NavigationView navigationView = findViewById(R.id.nvHome);
-                    TextView hamcart = navigationView.getMenu().findItem(R.id.MyCart).getActionView().findViewById(R.id.counter);
-                    TextView homecounter = findViewById(R.id.tvCartCount);
-
-                    if (s == null) {
-                        hamcart.setVisibility(View.GONE);
-                        homecounter.setVisibility(View.GONE);
-                    } else {
-                        hamcart.setVisibility(View.VISIBLE);
-                        homecounter.setVisibility(View.VISIBLE);
-                        hamcart.setText(s);
-                        homecounter.setText(s);
-                    }
+                if (s == null) {
+                    hamcart.setVisibility(View.GONE);
+                    homecounter.setVisibility(View.GONE);
+                } else {
+                    hamcart.setVisibility(View.VISIBLE);
+                    homecounter.setVisibility(View.VISIBLE);
+                    hamcart.setText(s);
+                    homecounter.setText(s);
                 }
-
-
-            }
-
-            @Override
-            public void onFailure(Call<ResponseCart> call, Throwable t) {
-
             }
         });
+
+
+//        Call<ResponseCart> call2 = RetrofitClient.getInstance().getApi()
+//                .listcart(token);
+//
+//        call2.enqueue(new Callback<ResponseCart>() {
+//            @Override
+//            public void onResponse(Call<ResponseCart> call, Response<ResponseCart> response) {
+//
+//                if (response.isSuccessful()) {
+//                    String s = response.body().getCount();
+//                    HelperShared.Helper.getInstance(getApplicationContext()).updateCount(s);
+//
+//                    NavigationView navigationView = findViewById(R.id.nvHome);
+//                    TextView hamcart = navigationView.getMenu().findItem(R.id.MyCart).getActionView().findViewById(R.id.counter);
+//                    TextView homecounter = findViewById(R.id.tvCartCount);
+//
+//                    if (s == null) {
+//                        hamcart.setVisibility(View.GONE);
+//                        homecounter.setVisibility(View.GONE);
+//                    } else {
+//                        hamcart.setVisibility(View.VISIBLE);
+//                        homecounter.setVisibility(View.VISIBLE);
+//                        hamcart.setText(s);
+//                        homecounter.setText(s);
+//                    }
+//                }
+//
+//
+//            }
+//
+//            @Override
+//            public void onFailure(Call<ResponseCart> call, Throwable t) {
+//
+//            }
+//        });
     }
 
     @Override

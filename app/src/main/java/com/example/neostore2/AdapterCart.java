@@ -1,24 +1,23 @@
 package com.example.neostore2;
 
 import android.app.Activity;
-import android.content.Intent;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.ImageView;
-import android.widget.RatingBar;
 import android.widget.Spinner;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import androidx.annotation.NonNull;
+import androidx.lifecycle.LifecycleOwner;
+import androidx.lifecycle.Observer;
+import androidx.lifecycle.ViewModelProvider;
+import androidx.lifecycle.ViewModelStoreOwner;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.bumptech.glide.Glide;
-import com.google.android.material.snackbar.Snackbar;
 
 import java.text.NumberFormat;
 import java.util.List;
@@ -27,16 +26,15 @@ import java.util.Locale;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
-import retrofit2.Retrofit;
 
 public class AdapterCart extends RecyclerView.Adapter<AdapterCart.ExampleViewHolder> {
     public List<DataCart> mExampleList;
     Activity context;
-    String[] items = new String[] {"Select","1", "2", "3","4","5","6","7","8"};
+    String[] items = new String[]{"Select", "1", "2", "3", "4", "5", "6", "7", "8"};
     String token;
     Boolean initialDisplay = true;
     TextView tool;
-
+    private RetroViewModel model;
 
 
 
@@ -62,7 +60,8 @@ public class AdapterCart extends RecyclerView.Adapter<AdapterCart.ExampleViewHol
         mExampleList = exampleList;
         this.context = context;
         this.token = atoken;
-        this.tool= totalbox;
+        this.tool = totalbox;
+        model = new ViewModelProvider((ViewModelStoreOwner) context).get(RetroViewModel.class);
     }
 
     @NonNull
@@ -90,8 +89,7 @@ public class AdapterCart extends RecyclerView.Adapter<AdapterCart.ExampleViewHol
         int cost = Integer.valueOf(currentItem.getTotal());
 
 
-
-        holder.cprice.setText("Rs. "+format(cost));
+        holder.cprice.setText("Rs. " + format(cost));
         Glide.with(context).load(currentItem.getProductImage()).into(holder.cimage);
 
         ArrayAdapter<String> adapter = new ArrayAdapter<>(context, android.R.layout.simple_spinner_item, items);
@@ -101,19 +99,22 @@ public class AdapterCart extends RecyclerView.Adapter<AdapterCart.ExampleViewHol
 
 
         initialDisplay = false;
-        holder.spinner.setOnTouchListener((v,me) -> {initialDisplay = true; v.performClick(); return false;});
+        holder.spinner.setOnTouchListener((v, me) -> {
+            initialDisplay = true;
+            v.performClick();
+            return false;
+        });
 
         holder.spinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
 
-                if(initialDisplay){
+                if (initialDisplay) {
+
                     int done = base * position;
-
-
-                    holder.cprice.setText("Rs. "+format(done));
-
+                    holder.cprice.setText("Rs. " + format(done));
                     int itemPosition = holder.spinner.getSelectedItemPosition();
+
                     editcart(token, currentItem.getId(), itemPosition);
 
                 }
@@ -130,27 +131,18 @@ public class AdapterCart extends RecyclerView.Adapter<AdapterCart.ExampleViewHol
 
     private void editcart(String token, String id, int itemPosition) {
 
+        model.editcart(token,  id, String.valueOf(itemPosition));
 
-
-
-                Call<ResponseEditCart> call =  RetrofitClient.getInstance().getApi()
-                .editCart(token, id, String.valueOf(itemPosition));
-
-
-        call.enqueue(new Callback<ResponseEditCart>() {
-            @Override
-            public void onResponse(Call<ResponseEditCart> call, Response<ResponseEditCart> response) {
-
-
-
-
-            }
-
-            @Override
-            public void onFailure(Call<ResponseEditCart> call, Throwable t) {
-
-            }
-        });
+//        model.listcart(token).observe((LifecycleOwner) context, new Observer<ResponseCart>() {
+//            @Override
+//            public void onChanged(ResponseCart responseCart) {
+//
+//                    String total = format(Integer.valueOf(responseCart.getTotal()));
+//
+//                    tool.setText("Rs. " + total);
+//
+//            }
+//        });
 
         Call<ResponseCart> call1 = RetrofitClient.getInstance().getApi()
                 .listcart(token);
@@ -171,7 +163,7 @@ public class AdapterCart extends RecyclerView.Adapter<AdapterCart.ExampleViewHol
     }
 
 
-    private String format(int amount){
+    private String format(int amount) {
         return NumberFormat.getNumberInstance(new Locale("en", "in")).format(amount);
     }
 

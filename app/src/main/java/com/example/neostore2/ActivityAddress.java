@@ -48,7 +48,6 @@ public class ActivityAddress extends AppCompatActivity {
 
         final AdapterAddress adapter = new AdapterAddress(ActivityAddress.this);
         mRecycler.setAdapter(adapter);
-
         String mail = HelperShared.Helper.getInstance(getApplicationContext()).fetchUser().getEmail();
         String token = HelperShared.Helper.getInstance(getApplicationContext()).fetchUser().getToken();
 
@@ -60,6 +59,7 @@ public class ActivityAddress extends AppCompatActivity {
             public void onChanged(List<Note> notes) {
                 adapter.setNotes(notes);
 
+
             }
         });
 
@@ -70,6 +70,7 @@ public class ActivityAddress extends AppCompatActivity {
             tv.setVisibility(View.VISIBLE);
         }
 
+        adapter.getItemCount();
 
 
         new ItemTouchHelper(new ItemTouchHelper.SimpleCallback(0, ItemTouchHelper.LEFT| ItemTouchHelper.RIGHT) {
@@ -101,19 +102,14 @@ public class ActivityAddress extends AppCompatActivity {
                         public void onChanged(ResponseOrder responseOrder) {
                                 String toast = responseOrder.getUser_msg();
                                 Toast.makeText(ActivityAddress.this, toast, Toast.LENGTH_SHORT).show();
+                                Intent order = new Intent(ActivityAddress.this, ActivityOrderList.class);
+                                startActivity(order);
                         }
                     });
 
                 }
             }
         });
-
-
-
-
-
-
-
     }
 
     @Override

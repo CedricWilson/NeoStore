@@ -1,19 +1,11 @@
 package com.example.neostore2;
 
-import androidx.appcompat.app.AlertDialog;
-import androidx.appcompat.app.AppCompatActivity;
-import androidx.recyclerview.widget.LinearLayoutManager;
-import androidx.recyclerview.widget.RecyclerView;
-
 import android.annotation.SuppressLint;
-import android.content.Context;
 import android.content.Intent;
-import android.content.SharedPreferences;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
 import android.text.method.ScrollingMovementMethod;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.MotionEvent;
 import android.view.View;
@@ -25,7 +17,15 @@ import android.widget.RatingBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import androidx.appcompat.app.AlertDialog;
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.lifecycle.Observer;
+import androidx.lifecycle.ViewModelProvider;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
+
 import com.bumptech.glide.Glide;
+import com.google.android.material.navigation.NavigationView;
 
 import java.text.NumberFormat;
 import java.util.List;
@@ -39,6 +39,8 @@ public class ActivityDetails extends AppCompatActivity {
     private RecyclerView mRecyclerView;
     private RecyclerView.Adapter mAdapter;
     private RecyclerView.LayoutManager mLayoutManager;
+    private RetroViewModel model;
+
 
     @Override
     protected void onStart() {
@@ -60,7 +62,11 @@ public class ActivityDetails extends AppCompatActivity {
         mLayoutManager = new LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false);
         mRecyclerView.setLayoutManager(mLayoutManager);
 
-        findViewById(R.id.ivBack).setOnClickListener(v -> { finish(); });
+        model = new ViewModelProvider(this).get(RetroViewModel.class);
+
+        findViewById(R.id.ivBack).setOnClickListener(v -> {
+            finish();
+        });
         findViewById(R.id.cart).setOnClickListener(v -> {
             Intent cart = new Intent(ActivityDetails.this, ActivityCart.class);
             startActivity(cart);
@@ -79,12 +85,10 @@ public class ActivityDetails extends AppCompatActivity {
         Intent i = getIntent();
         String id = i.getStringExtra("id");
 
-        Call<ResponseDetails> call = RetrofitClient.getInstance().getApi()
-                .getDetails(id);
-
-        call.enqueue(new Callback<ResponseDetails>() {
+        model.productdetails(id).observe(this, new Observer<ResponseDetails>() {
             @Override
-            public void onResponse(Call<ResponseDetails> call, Response<ResponseDetails> response) {
+            public void onChanged(ResponseDetails responseDetails) {
+
                 TextView name = findViewById(R.id.tvDname);
                 TextView producer = findViewById(R.id.tvDproducer);
                 TextView cat = findViewById(R.id.tvDcategory);
@@ -93,7 +97,7 @@ public class ActivityDetails extends AppCompatActivity {
                 RatingBar ratingBar = findViewById(R.id.DratingBar);
                 ImageView mainpic = findViewById(R.id.ivDpic);
 
-                DataDetails data = response.body().getData();
+                DataDetails data = responseDetails.getData();
 
                 String id = data.getId();
                 name.setText(data.getName());
@@ -121,27 +125,84 @@ public class ActivityDetails extends AppCompatActivity {
                 description.setMovementMethod(new ScrollingMovementMethod());
 
                 String s = data.getProduct_images().get(0).getImage();
-                Glide.with(getApplicationContext()).load(s).into(mainpic);
+                Glide.with(ActivityDetails.this).load(s).into(mainpic);
 
                 List<DataProductImages> imagelist = data.getProduct_images();
                 mAdapter = new AdapterImage(imagelist, ActivityDetails.this, mainpic);
                 mRecyclerView.setAdapter(mAdapter);
 
-                buy.setOnClickListener(v -> { buyClick(data,s); });
-                rate.setOnClickListener(v -> { rateClick(data,s,id); });
-            }
-
-            @Override
-            public void onFailure(Call<ResponseDetails> call, Throwable t) {
-                Log.d("main", "Failed");
+                buy.setOnClickListener(v -> {
+                    buyClick(data, s);
+                });
+                rate.setOnClickListener(v -> {
+                    rateClick(data, s, id);
+                });
             }
         });
+
+//        Call<ResponseDetails> call = RetrofitClient.getInstance().getApi()
+//                .getDetails(id);
+//
+//        call.enqueue(new Callback<ResponseDetails>() {
+//            @Override
+//            public void onResponse(Call<ResponseDetails> call, Response<ResponseDetails> response) {
+//                TextView name = findViewById(R.id.tvDname);
+//                TextView producer = findViewById(R.id.tvDproducer);
+//                TextView cat = findViewById(R.id.tvDcategory);
+//                TextView price = findViewById(R.id.tvDprice);
+//                TextView description = findViewById(R.id.tvDdescription);
+//                RatingBar ratingBar = findViewById(R.id.DratingBar);
+//                ImageView mainpic = findViewById(R.id.ivDpic);
+//
+//                DataDetails data = response.body().getData();
+//
+//                String id = data.getId();
+//                name.setText(data.getName());
+//                producer.setText(data.getProducer());
+//                price.setText("Rs." + " " + format(data.getCost()));
+//                ratingBar.setRating(data.getRating());
+//
+//                String i = data.getCid();
+//
+//                switch (i) {
+//                    case "1":
+//                        cat.setText("Table");
+//                        break;
+//                    case "2":
+//                        cat.setText("Chair");
+//                        break;
+//                    case "3":
+//                        cat.setText("Sofa");
+//                        break;
+//                    case "4":
+//                        cat.setText("Bed");
+//                        break;
+//                }
+//                description.setText(data.getDescription());
+//                description.setMovementMethod(new ScrollingMovementMethod());
+//
+//                String s = data.getProduct_images().get(0).getImage();
+//                Glide.with(getApplicationContext()).load(s).into(mainpic);
+//
+//                List<DataProductImages> imagelist = data.getProduct_images();
+//                mAdapter = new AdapterImage(imagelist, ActivityDetails.this, mainpic);
+//                mRecyclerView.setAdapter(mAdapter);
+//
+//                buy.setOnClickListener(v -> { buyClick(data,s); });
+//                rate.setOnClickListener(v -> { rateClick(data,s,id); });
+//            }
+//
+//            @Override
+//            public void onFailure(Call<ResponseDetails> call, Throwable t) {
+//                Log.d("main", "Failed");
+//            }
+//        });
 
 
     }
 
     @SuppressLint("ClickableViewAccessibility")
-    private void rateClick(DataDetails data, String image, String s) {
+    private void rateClick(DataDetails data, String image, String id) {
         ViewGroup viewGroup = findViewById(android.R.id.content);
 
         View dialogView = LayoutInflater.from(getApplicationContext()).inflate(R.layout.pop_rate, viewGroup,
@@ -189,46 +250,23 @@ public class ActivityDetails extends AppCompatActivity {
                     v.setPressed(false);
                 }
                 return true;
-            }});
-        Button btrate = alertDialog.findViewById(R.id.btRSubmit);
-        btrate.setOnClickListener(v -> {
-            setrate(rate[0],s);
-        });
-    }
-
-    private void setrate(String rate, String s) {
-
-        Call<ResponseRate> call = RetrofitClient.getInstance().getApi()
-                .setRating(s,rate);
-
-        call.enqueue(new Callback<ResponseRate>() {
-            @Override
-            public void onResponse(Call<ResponseRate> call, Response<ResponseRate> response) {
-
-                Toast.makeText(
-                            getApplicationContext(),
-                            response.body().getMessage(),
-                            Toast.LENGTH_LONG
-                    ).show();
-
-
-            }
-
-            @Override
-            public void onFailure(Call<ResponseRate> call, Throwable t) {
-                Log.d("main", "FAILED");
             }
         });
 
+        alertDialog.findViewById(R.id.btRSubmit).setOnClickListener(v -> {
+
+            model.testrate(id, rate[0]);
+            alertDialog.cancel();
+
+        });
 
     }
-
 
     private void buyClick(DataDetails data, String s) {
         ViewGroup viewGroup = findViewById(android.R.id.content);
 
         View dialogView = LayoutInflater.from(getApplicationContext()).inflate(R.layout.pop_buy, viewGroup,
-                                                false);
+                false);
 
         AlertDialog.Builder builder = new AlertDialog.Builder(ActivityDetails.this);
 
@@ -243,7 +281,6 @@ public class ActivityDetails extends AppCompatActivity {
 
         ImageView ppic = dialogView.findViewById(R.id.ivBpic);
         Glide.with(getApplicationContext()).load(s).into(ppic);
-
 
 
         Button submit = alertDialog.findViewById(R.id.btBSubmit);
@@ -264,32 +301,20 @@ public class ActivityDetails extends AppCompatActivity {
         EditText quantity = dialogView.findViewById(R.id.etQuantity);
         String q = quantity.getText().toString();
         int iq = Integer.parseInt(q);
-        if(iq>8){
+        if (iq > 8) {
             Toast.makeText(this, "Max Quatity allowed 8", Toast.LENGTH_SHORT).show();
-        }else if(iq==0){
+        } else if (iq == 0) {
             Toast.makeText(this, "Min Quantity 1", Toast.LENGTH_SHORT).show();
-        }
-        else{
+        } else {
             String token = HelperShared.Helper.getInstance(getApplicationContext()).fetchUser().getToken();
 
-            Call<ResponseAddCart> call1 = RetrofitClient.getInstance().getApi()
-                    .addcart(token, data.getId(), q);
-            Log.d("main", token+" "+data.getId()+" "+q);
-
-            call1.enqueue(new Callback<ResponseAddCart>() {
+            model.addcart(token, data.getId(), q).observe(this, new Observer<String>() {
                 @Override
-                public void onResponse(Call<ResponseAddCart> call, Response<ResponseAddCart> response) {
-                    String mes = response.body().getUser_msg();
-
-                    Toast.makeText(getApplicationContext(), mes, Toast.LENGTH_SHORT).show();
-                    alertDialog.cancel();
-                    cartcounter(token);
-
-                }
-
-                @Override
-                public void onFailure(Call<ResponseAddCart> call, Throwable t) {
-
+                public void onChanged(String s) {
+                    if (s.equals("1")) {
+                        alertDialog.cancel();
+                        cartcounter(token);
+                    }
                 }
             });
         }
@@ -297,31 +322,20 @@ public class ActivityDetails extends AppCompatActivity {
     }
 
     private void cartcounter(String token) {
-        Call<ResponseCart> call2 = RetrofitClient.getInstance().getApi()
-                .listcart(token);
 
-        call2.enqueue(new Callback<ResponseCart>() {
+        model.cartcount(token).observe(this, new Observer<String>() {
             @Override
-            public void onResponse(Call<ResponseCart> call, Response<ResponseCart> response) {
-
-                String s = response.body().getCount();
-                Log.d("mail", "Cart1st: "+s);
+            public void onChanged(String s) {
                 TextView cart = findViewById(R.id.tvCartCount);
-                if(s==null){
+                if (s == null) {
                     cart.setVisibility(View.GONE);
-                }else {
+                } else {
                     cart.setVisibility(View.VISIBLE);
                     cart.setText(s);
                 }
-
-
-            }
-
-            @Override
-            public void onFailure(Call<ResponseCart> call, Throwable t) {
-
             }
         });
+
     }
 
     private String format(String amount) {

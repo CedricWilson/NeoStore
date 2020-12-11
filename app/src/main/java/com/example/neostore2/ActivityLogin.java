@@ -1,30 +1,28 @@
 package com.example.neostore2;
 
-import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.util.Patterns;
 import android.view.View;
 import android.widget.EditText;
-import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
-
-import org.json.JSONObject;
-
-import retrofit2.Call;
-import retrofit2.Callback;
-import retrofit2.Response;
+import androidx.lifecycle.Observer;
+import androidx.lifecycle.ViewModelProvider;
 
 public class ActivityLogin extends AppCompatActivity implements View.OnClickListener {
 
     private EditText usernamebox;
     private EditText passwordbox;
+    private RetroViewModel model;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
+        model = new ViewModelProvider(this).get(RetroViewModel.class);
+
 
         usernamebox = findViewById(R.id.etUsername);
         passwordbox = findViewById(R.id.etPassword);
@@ -80,48 +78,18 @@ public class ActivityLogin extends AppCompatActivity implements View.OnClickList
             return;
         }
 
-        Call<ResponseLogin> call = RetrofitClient.getInstance().getApi()
-                .loginuser(username, password);
+        model.login(username, password).observe(this, responseLogin -> {
 
-        call.enqueue(new Callback<ResponseLogin>() {
-            @Override
-            public void onResponse(Call<ResponseLogin> call, Response<ResponseLogin> response) {
+            String s = responseLogin.getMessage();
 
-                if (response.isSuccessful()) {
+            HelperShared.Helper.getInstance(getApplicationContext()).saveUser(responseLogin.getData());
 
-                    Toast.makeText(
-                            getApplicationContext(),
-                            response.body().getMessage(),
-                            Toast.LENGTH_LONG).show();
-
-
-                    HelperShared.Helper.getInstance(getApplicationContext()).saveUser(response.body().getData());
-
-
-                    Intent home = new Intent(getApplicationContext(), ActivityHomepage.class);
-                    home.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
-                    startActivity(home);
-
-
-                } else {
-                    try {
-                        JSONObject jObjError = new JSONObject(response.errorBody().string());
-                        Toast.makeText(
-                                getApplicationContext(),
-                                jObjError.getString("user_msg"),
-                                Toast.LENGTH_LONG).show();
-                    } catch (Exception e) {
-                        Toast.makeText(getApplicationContext(), e.getMessage(), Toast.LENGTH_LONG).show();
-                    }
-                }
-
+            if (s.equals("Logged In successfully")) {
+                Intent home = new Intent(getApplicationContext(), ActivityHomepage.class);
+                home.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
+                startActivity(home);
             }
 
-            @Override
-            public void onFailure(Call<ResponseLogin> call, Throwable t) {
-                Toast.makeText(ActivityLogin.this, t.getMessage(), Toast.LENGTH_LONG).show();
-
-            }
         });
 
     }

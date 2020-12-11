@@ -25,7 +25,9 @@
             android:launchMode="singleTop" />
         <activity android:name=".ActivityCart" />
         <activity android:name=".ActivityDetails" />
-        <activity android:name=".ActivityProductTable" />
+        <activity android:name=".ActivityProductTable"
+
+            />
         <activity
             android:name=".ActivityHomepage"
             android:theme="@style/splashScreenTheme">

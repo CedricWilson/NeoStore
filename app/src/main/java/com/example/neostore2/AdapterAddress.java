@@ -8,6 +8,8 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Filter;
+import android.widget.Filterable;
 import android.widget.ImageView;
 import android.widget.Spinner;
 import android.widget.TextView;
@@ -19,12 +21,11 @@ import androidx.recyclerview.widget.RecyclerView;
 import java.util.ArrayList;
 import java.util.List;
 
-public class AdapterAddress extends RecyclerView.Adapter<AdapterAddress.ExampleViewHolder> {
+public class AdapterAddress extends RecyclerView.Adapter<AdapterAddress.ExampleViewHolder>{
 private List<Note> notes = new ArrayList<>();
     int selectedPosition=0;
     int itempos=0;
     Activity context;
-
 
     public class ExampleViewHolder extends RecyclerView.ViewHolder {
         public TextView aName;
@@ -99,6 +100,7 @@ private List<Note> notes = new ArrayList<>();
     public Note getNoteAt(int position){
         return notes.get(position);
     }
+
 
 
 

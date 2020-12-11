@@ -1,10 +1,13 @@
 package com.example.neostore2;
 
 import android.app.Application;
+import android.util.Log;
 import android.widget.Toast;
 
 import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MutableLiveData;
+
+import org.json.JSONObject;
 
 import java.util.List;
 
@@ -17,17 +20,239 @@ public class RetroRepo {
     private API api;
     private Application application;
     private final MutableLiveData<ResponseOrder> orderplace = new MutableLiveData<>();
-    private final MutableLiveData<DataLogin> dataL = new MutableLiveData<>();
     private final MutableLiveData<List<DataOrderList>> orderL = new MutableLiveData<>();
     private final MutableLiveData<DataOrderDetail> orderDetail = new MutableLiveData<>();
     private final MutableLiveData<ResponseEditProfile> editProfile = new MutableLiveData<>();
     private final MutableLiveData<ResponseChangePassword> changePass = new MutableLiveData<>();
     private LiveData<ResponseForgotPassword> forgotPass;
-
+    private MutableLiveData<ResponseRegistration> register = new MutableLiveData<>();
+    private final MutableLiveData<ResponseLogin> login = new MutableLiveData<>();
+    private final MutableLiveData<String> cartcount = new MutableLiveData<>();
+    private final MutableLiveData<List<DataProduct>> product = new MutableLiveData<>();
+    private final MutableLiveData<ResponseDetails> details = new MutableLiveData<>();
+    private String testrate;
+    private MutableLiveData<String> addcart = new MutableLiveData<>();
+    private final MutableLiveData<ResponseCart> listcart = new MutableLiveData<>();
+    private String deletecart;
+    private String editCart;
 
     public RetroRepo(Application application) {
         api = RetrofitClient.getInstance().getApi();
         this.application = application;
+    }
+
+    public String getEditCart(String token, String id, String quantity){
+        Call<ResponseEditCart> call = api.editCart(token, id, quantity);
+        call.enqueue(new Callback<ResponseEditCart>() {
+            @Override
+            public void onResponse(Call<ResponseEditCart> call, Response<ResponseEditCart> response) {
+
+            }
+
+            @Override
+            public void onFailure(Call<ResponseEditCart> call, Throwable t) {
+
+            }
+        });
+
+        return editCart;
+    }
+
+    public String getDeletecart(String token, String id) {
+        Call<ResponseDeleteCart> call = api.deleteCart(token, id);
+        call.enqueue(new Callback<ResponseDeleteCart>() {
+            @Override
+            public void onResponse(Call<ResponseDeleteCart> call, Response<ResponseDeleteCart> response) {
+                Toast.makeText(application, response.body().getMessage(), Toast.LENGTH_SHORT).show();
+            }
+
+            @Override
+            public void onFailure(Call<ResponseDeleteCart> call, Throwable t) {
+
+            }
+        });
+
+        return deletecart;
+    }
+
+    public MutableLiveData<ResponseCart> getListcart(String token) {
+        Call<ResponseCart> call = api.listcart(token);
+        call.enqueue(new Callback<ResponseCart>() {
+            @Override
+            public void onResponse(Call<ResponseCart> call, Response<ResponseCart> response) {
+                listcart.postValue(response.body());
+            }
+
+            @Override
+            public void onFailure(Call<ResponseCart> call, Throwable t) {
+
+            }
+        });
+        return listcart;
+    }
+
+    public MutableLiveData<String> getAddcart(String token, String id, String quantity) {
+        Call<ResponseAddCart> call = api.addcart(token, id, quantity);
+        call.enqueue(new Callback<ResponseAddCart>() {
+            @Override
+            public void onResponse(Call<ResponseAddCart> call, Response<ResponseAddCart> response) {
+                Toast.makeText(application, response.body().getUser_msg(), Toast.LENGTH_SHORT).show();
+                if (response.body().getUser_msg() != null) {
+                    addcart.postValue("1");
+                }
+            }
+
+            @Override
+            public void onFailure(Call<ResponseAddCart> call, Throwable t) {
+
+            }
+        });
+
+        return addcart;
+    }
+
+    public String getTestrate(String id, String valrate) {
+        Call<ResponseRate> call = api.setRating(id, valrate);
+        call.enqueue(new Callback<ResponseRate>() {
+            @Override
+            public void onResponse(Call<ResponseRate> call, Response<ResponseRate> response) {
+                Toast.makeText(application, response.body().getMessage(), Toast.LENGTH_SHORT).show();
+            }
+
+            @Override
+            public void onFailure(Call<ResponseRate> call, Throwable t) {
+
+            }
+        });
+        return testrate;
+    }
+
+    public MutableLiveData<ResponseDetails> getDetails(String id) {
+        Call<ResponseDetails> call = api.getDetails(id);
+        call.enqueue(new Callback<ResponseDetails>() {
+            @Override
+            public void onResponse(Call<ResponseDetails> call, Response<ResponseDetails> response) {
+                details.postValue(response.body());
+            }
+
+            @Override
+            public void onFailure(Call<ResponseDetails> call, Throwable t) {
+
+            }
+        });
+
+
+        return details;
+    }
+
+    public MutableLiveData<List<DataProduct>> getProductList(String val) {
+        Call<ResponseProductList> call = api.getList(val);
+
+        call.enqueue(new Callback<ResponseProductList>() {
+            @Override
+            public void onResponse(Call<ResponseProductList> call, Response<ResponseProductList> response) {
+                product.postValue(response.body().getData());
+            }
+
+            @Override
+            public void onFailure(Call<ResponseProductList> call, Throwable t) {
+
+            }
+        });
+
+        return product;
+    }
+
+    public MutableLiveData<String> getCartcount(String token) {
+        Call<ResponseCart> call = api
+                .listcart(token);
+        call.enqueue(new Callback<ResponseCart>() {
+            @Override
+            public void onResponse(Call<ResponseCart> call, Response<ResponseCart> response) {
+
+                cartcount.postValue(response.body().getCount());
+
+            }
+
+            @Override
+            public void onFailure(Call<ResponseCart> call, Throwable t) {
+
+            }
+        });
+
+        return cartcount;
+
+    }
+
+    public MutableLiveData<ResponseLogin> login(String email, String password) {
+        Call<ResponseLogin> call = api
+                .loginuser(email, password);
+        call.enqueue(new Callback<ResponseLogin>() {
+            @Override
+            public void onResponse(Call<ResponseLogin> call, Response<ResponseLogin> response) {
+
+                if (response.isSuccessful()) {
+                    Toast.makeText(
+                            application,
+                            response.body().getMessage(),
+                            Toast.LENGTH_LONG).show();
+
+                    login.postValue(response.body());
+
+                } else {
+                    try {
+                        JSONObject jObjError = new JSONObject(response.errorBody().string());
+                        Toast.makeText(
+                                application,
+                                jObjError.getString("user_msg"),
+                                Toast.LENGTH_LONG).show();
+                    } catch (Exception e) {
+                        Toast.makeText(application, e.getMessage(), Toast.LENGTH_LONG).show();
+                    }
+                }
+
+            }
+
+            @Override
+            public void onFailure(Call<ResponseLogin> call, Throwable t) {
+
+            }
+        });
+        return login;
+    }
+
+
+    public MutableLiveData<ResponseRegistration> getRegister(String firstname, String lastname, String email, String password, String confirm, String gender, String phone) {
+        Call<ResponseRegistration> call = api
+                .createUser(firstname, lastname, email, password, confirm, gender, phone);
+        call.enqueue(new Callback<ResponseRegistration>() {
+            @Override
+            public void onResponse(Call<ResponseRegistration> call, Response<ResponseRegistration> response) {
+                if (response.isSuccessful()) {
+                    Log.d("main", "" + response.body().getMessage());
+                    register.postValue(response.body());
+
+
+                } else {
+                    try {
+                        JSONObject jObjError = new JSONObject(response.errorBody().string());
+                        Log.d("main", jObjError.toString());
+                        Toast.makeText(
+                                application,
+                                jObjError.getString("user_msg"),
+                                Toast.LENGTH_LONG).show();
+                    } catch (Exception e) {
+                        Toast.makeText(application, e.getMessage(), Toast.LENGTH_LONG).show();
+                    }
+                }
+            }
+
+            @Override
+            public void onFailure(Call<ResponseRegistration> call, Throwable t) {
+
+            }
+        });
+        return register;
     }
 
     public LiveData<ResponseForgotPassword> getForgotPass(String email) {
@@ -46,7 +271,7 @@ public class RetroRepo {
         return forgotPass;
     }
 
-    public MutableLiveData<ResponseChangePassword> getChangePass(String token, String old, String pass, String confirm){
+    public MutableLiveData<ResponseChangePassword> getChangePass(String token, String old, String pass, String confirm) {
         Call<ResponseChangePassword> call = api.changePass(token, old, pass, confirm);
         call.enqueue(new Callback<ResponseChangePassword>() {
             @Override
@@ -132,50 +357,6 @@ public class RetroRepo {
         });
         return orderplace;
     }
-
-    public MutableLiveData<DataLogin> getDataL(String email, String password) {
-        Call<ResponseLogin> call = api.loginuser(email, password);
-        call.enqueue(new Callback<ResponseLogin>() {
-            @Override
-            public void onResponse(Call<ResponseLogin> call, Response<ResponseLogin> response) {
-                if (response.isSuccessful()) {
-                    dataL.setValue(response.body().getData());
-                }
-            }
-
-            @Override
-            public void onFailure(Call<ResponseLogin> call, Throwable t) {
-
-            }
-        });
-        return dataL;
-    }
-
-//    public LiveData<DataLogin> getLoginD(String email, String password){
-//        Call<ResponseLogin> call = api.loginuser(email, password);
-//        call.enqueue(new Callback<ResponseLogin>() {
-//            @Override
-//            public void onResponse(Call<ResponseLogin> call, Response<ResponseLogin> response) {
-//                if (response.isSuccessful()) {
-//                    DataLogin loginD= response.body().getData();
-//                    Log.d("mail", loginD.getEmail());
-//                }
-//            }
-//
-//            @Override
-//            public void onFailure(Call<ResponseLogin> call, Throwable t) {
-//                Log.d("main", "FailedRepo");
-//            }
-//        });
-//
-//        try {
-//            Log.d("mail", "LoginD is: "+loginD.getEmail());
-//        } catch (Exception e) {
-//            e.printStackTrace();
-//        }
-//
-//        return loginD;
-//    }
 
 
 }

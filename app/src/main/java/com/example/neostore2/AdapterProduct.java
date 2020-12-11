@@ -5,6 +5,8 @@ import android.content.Intent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Filter;
+import android.widget.Filterable;
 import android.widget.ImageView;
 import android.widget.RatingBar;
 import android.widget.TextView;
@@ -15,14 +17,20 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.bumptech.glide.Glide;
 
 import java.text.NumberFormat;
+import java.util.ArrayList;
+import java.util.Collection;
 import java.util.List;
 import java.util.Locale;
 
-public class AdapterProduct extends RecyclerView.Adapter<AdapterProduct.ExampleViewHolder> {
+public class AdapterProduct extends RecyclerView.Adapter<AdapterProduct.ExampleViewHolder> implements Filterable{
     public List<DataProduct> mExampleList;
+    public List<DataProduct> mExampleListfull;
     Activity context;
 
-    public class ExampleViewHolder extends RecyclerView.ViewHolder {
+
+
+
+    public class ExampleViewHolder extends RecyclerView.ViewHolder{
         public ImageView pImage;
         public TextView pName;
         public TextView pPrice;
@@ -39,12 +47,15 @@ public class AdapterProduct extends RecyclerView.Adapter<AdapterProduct.ExampleV
             pProducer = itemView.findViewById(R.id.tvProducer);
             pRating = itemView.findViewById(R.id.ratingBar);
         }
+
+
     }
 
 
 
     public AdapterProduct(List<DataProduct> exampleList, Activity context) {
         mExampleList = exampleList;
+        mExampleListfull =new ArrayList<>(exampleList);
         this.context = context;
 
     }
@@ -83,13 +94,55 @@ public class AdapterProduct extends RecyclerView.Adapter<AdapterProduct.ExampleV
     }
 
 
-    @Override
-    public int getItemCount() {
-        return mExampleList.size();
-    }
 
     private String format(String amount) {
         int number = Integer.valueOf(amount);
         return NumberFormat.getNumberInstance(new Locale("en", "in")).format(number);
     }
+
+    @Override
+    public int getItemCount() {
+        return mExampleList.size();
+    }
+
+    @Override
+    public Filter getFilter() {
+        return exampleFilter;
+    }
+
+
+        private Filter exampleFilter = new Filter() {
+        @Override
+        protected FilterResults performFiltering(CharSequence constraint) {
+            List<DataProduct> filtered = new ArrayList<>();
+
+            if(constraint == null || constraint.length()==0){
+                filtered.addAll(mExampleListfull);
+            }else {
+                String filterpattern = constraint.toString().toLowerCase().trim();
+                for(DataProduct data : mExampleListfull){
+                    if(data.getName().toLowerCase().contains(filterpattern)){
+                        filtered.add(data);
+                    }
+                }
+            }
+            FilterResults results = new FilterResults();
+            results.values = filtered;
+
+            return  results;
+        }
+
+        @Override
+        protected void publishResults(CharSequence constraint, FilterResults results) {
+            mExampleList.clear();
+            mExampleList.addAll((List) results.values);
+            notifyDataSetChanged();
+
+        }
+    };
+
+
+
+
+
 }
