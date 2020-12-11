@@ -10,6 +10,10 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
 
+import com.example.neostore2.Helpers.HelperShared;
+import com.example.neostore2.Helpers.RetroViewModel;
+import com.example.neostore2.Response.ResponseChangePassword;
+
 public class ActivityChangePassword extends AppCompatActivity {
     private RetroViewModel model;
 

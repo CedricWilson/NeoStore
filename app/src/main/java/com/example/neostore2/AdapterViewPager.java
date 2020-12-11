@@ -8,6 +8,8 @@ import android.widget.ImageView;
 import androidx.annotation.NonNull;
 import androidx.viewpager.widget.PagerAdapter;
 
+import com.example.neostore2.R;
+
 public class AdapterViewPager extends PagerAdapter {
     private Context mContext;
     private int[] imgid = new int[] {R.drawable.slider_sofa, R.drawable.slider_table,R.drawable.slider_bed,R.drawable.slider_chair};

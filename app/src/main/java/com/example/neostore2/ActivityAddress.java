@@ -8,17 +8,19 @@ import androidx.lifecycle.ViewModelProvider;
 import androidx.recyclerview.widget.ItemTouchHelper;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
-import androidx.room.Room;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.View;
-import android.widget.Adapter;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
+
+import com.example.neostore2.Helpers.HelperShared;
+import com.example.neostore2.Helpers.NoteViewModel;
+import com.example.neostore2.Helpers.RetroViewModel;
+import com.example.neostore2.Response.ResponseOrder;
 
 import java.util.List;
 

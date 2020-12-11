@@ -2,14 +2,15 @@ package com.example.neostore2;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.util.Log;
 import android.util.Patterns;
 import android.view.View;
 import android.widget.EditText;
 
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
+
+import com.example.neostore2.Helpers.HelperShared;
+import com.example.neostore2.Helpers.RetroViewModel;
 
 public class ActivityLogin extends AppCompatActivity implements View.OnClickListener {
 

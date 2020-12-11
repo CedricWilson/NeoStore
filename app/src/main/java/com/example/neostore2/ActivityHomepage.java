@@ -3,6 +3,7 @@ package com.example.neostore2;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
+import android.os.Handler;
 import android.view.Gravity;
 import android.view.MenuItem;
 import android.view.View;
@@ -18,14 +19,17 @@ import androidx.lifecycle.ViewModelProvider;
 import androidx.viewpager.widget.ViewPager;
 
 import com.bumptech.glide.Glide;
+import com.example.neostore2.Helpers.HelperShared;
+import com.example.neostore2.Helpers.RetroViewModel;
 import com.google.android.material.navigation.NavigationView;
 import com.rd.PageIndicatorView;
 
 import java.util.Timer;
+import java.util.TimerTask;
 
 public class ActivityHomepage extends AppCompatActivity implements View.OnClickListener {
     final long DELAY_MS = 500;//delay in milliseconds before task is to be executed
-    final long PERIOD_MS = 3000;
+    final long PERIOD_MS = 2800;
     Context context;
     int currentPage = 0;
     Timer timer;
@@ -83,22 +87,22 @@ public class ActivityHomepage extends AppCompatActivity implements View.OnClickL
         pageIndicatorView.setCount(4);
         pageIndicatorView.setSelection(0);
 
-//        final Handler handler = new Handler();
-//        final Runnable Update = () -> {
-//            if (currentPage == 4) {
-//                currentPage = 0;
-//            }
-//            viewPager.setCurrentItem(currentPage++, true);
-//        };
-//
-//        timer = new Timer(); // This will create a new Thread
-//        timer.schedule(new TimerTask() { // task to be scheduled
-//            @Override
-//            public void run() {
-//                handler.post(Update);
-//            }
-//        }, DELAY_MS, PERIOD_MS);
-        //
+        final Handler handler = new Handler();
+        final Runnable Update = () -> {
+            if (currentPage == 4) {
+                currentPage = 0;
+            }
+            viewPager.setCurrentItem(currentPage++, true);
+        };
+
+        timer = new Timer(); // This will create a new Thread
+        timer.schedule(new TimerTask() { // task to be scheduled
+            @Override
+            public void run() {
+                handler.post(Update);
+            }
+        }, DELAY_MS, PERIOD_MS);
+
 
         //Image Buttons
 

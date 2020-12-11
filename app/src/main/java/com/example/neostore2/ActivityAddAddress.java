@@ -2,17 +2,15 @@ package com.example.neostore2;
 
 import androidx.appcompat.app.AppCompatActivity;
 
-import androidx.lifecycle.ViewModelProvider;
-import androidx.room.Database;
-import androidx.room.Room;
-
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
-import android.widget.TextView;
 import android.widget.Toast;
+
+import com.example.neostore2.Helpers.HelperShared;
+import com.example.neostore2.Helpers.NoteRoomDatabase;
 
 public class ActivityAddAddress extends AppCompatActivity {
     public static final String EXTRA_ADDRESS = "com.example.neostore2.EXTRA_ADDRESS";

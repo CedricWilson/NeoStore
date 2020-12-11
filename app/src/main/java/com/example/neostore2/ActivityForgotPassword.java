@@ -8,6 +8,8 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 
+import com.example.neostore2.Helpers.RetroViewModel;
+
 public class ActivityForgotPassword extends AppCompatActivity {
     private RetroViewModel model;
 

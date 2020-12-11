@@ -15,6 +15,11 @@ import androidx.lifecycle.ViewModelProvider;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.example.neostore2.Adapters.AdapterProduct;
+import com.example.neostore2.Data.DataProduct;
+import com.example.neostore2.Helpers.HelperShared;
+import com.example.neostore2.Helpers.RetroViewModel;
+
 import java.util.List;
 
 public class ActivityProductTable extends AppCompatActivity {

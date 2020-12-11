@@ -1,7 +1,6 @@
 package com.example.neostore2;
 
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.core.view.GravityCompat;
 import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
 import androidx.recyclerview.widget.LinearLayoutManager;
@@ -9,17 +8,13 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.util.Log;
-import android.view.View;
-import android.widget.Button;
-import android.widget.EditText;
-import android.widget.TextView;
-import android.widget.Toast;
 
-import java.text.NumberFormat;
-import java.util.ArrayList;
+import com.example.neostore2.Adapters.AdapterOrderList;
+import com.example.neostore2.Data.DataOrderList;
+import com.example.neostore2.Helpers.HelperShared;
+import com.example.neostore2.Helpers.RetroViewModel;
+
 import java.util.List;
-import java.util.Locale;
 
 public class ActivityOrderList extends AppCompatActivity {
     private RetroViewModel retroViewModel;

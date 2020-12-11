@@ -25,15 +25,16 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.bumptech.glide.Glide;
-import com.google.android.material.navigation.NavigationView;
+import com.example.neostore2.Adapters.AdapterImage;
+import com.example.neostore2.Data.DataDetails;
+import com.example.neostore2.Data.DataProductImages;
+import com.example.neostore2.Helpers.HelperShared;
+import com.example.neostore2.Helpers.RetroViewModel;
+import com.example.neostore2.Response.ResponseDetails;
 
 import java.text.NumberFormat;
 import java.util.List;
 import java.util.Locale;
-
-import retrofit2.Call;
-import retrofit2.Callback;
-import retrofit2.Response;
 
 public class ActivityDetails extends AppCompatActivity {
     private RecyclerView mRecyclerView;
