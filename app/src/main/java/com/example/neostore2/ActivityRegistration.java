@@ -15,10 +15,8 @@ import android.widget.Toast;
 
 import com.example.neostore2.Helpers.RetroViewModel;
 
-public class ActivityRegistration extends AppCompatActivity {
+public class ActivityRegistration extends ActivityBase {
     private RetroViewModel model;
-
-
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -37,10 +35,7 @@ public class ActivityRegistration extends AppCompatActivity {
         RadioGroup rg = findViewById(R.id.rgGender);
         Button register = findViewById(R.id.btRegister);
 
-        findViewById(R.id.ivBack).setOnClickListener(v -> {
-            finish();
-            overridePendingTransition(R.anim.slide_in_left, R.anim.slide_out_right);
-        });
+        BackPressed(R.anim.slide_in_left, R.anim.slide_out_right);
 
         register.setOnClickListener(v -> {
 

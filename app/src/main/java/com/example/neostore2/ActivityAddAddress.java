@@ -12,7 +12,7 @@ import android.widget.Toast;
 import com.example.neostore2.Helpers.HelperShared;
 import com.example.neostore2.Helpers.NoteRoomDatabase;
 
-public class ActivityAddAddress extends AppCompatActivity {
+public class ActivityAddAddress extends ActivityBase {
     public static final String EXTRA_ADDRESS = "com.example.neostore2.EXTRA_ADDRESS";
     public static final String EXTRA_NAME = "com.example.neostore2.EXTRA_NAME";
     public static final String EXTRA_EMAIL = "com.example.neostore2.EXTRA_EMAIL";
@@ -41,7 +41,7 @@ public class ActivityAddAddress extends AppCompatActivity {
             }
         });
 
-        findViewById(R.id.ivBack).setOnClickListener(v -> { finish(); });
+        BackPressed(R.anim.slide_in_left, R.anim.slide_out_right);
 
 
     }

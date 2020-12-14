@@ -201,6 +201,7 @@
                 />
 
             <ImageView
+                android:id="@+id/ivShareDetails"
                 android:layout_width="70px"
                 android:layout_height="70px"
 

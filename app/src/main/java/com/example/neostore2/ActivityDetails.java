@@ -2,9 +2,13 @@ package com.example.neostore2;
 
 import android.annotation.SuppressLint;
 import android.content.Intent;
+import android.graphics.Bitmap;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
+import android.net.Uri;
 import android.os.Bundle;
+import android.os.Environment;
+import android.os.StrictMode;
 import android.text.method.ScrollingMovementMethod;
 import android.view.LayoutInflater;
 import android.view.MotionEvent;
@@ -32,11 +36,13 @@ import com.example.neostore2.Helpers.HelperShared;
 import com.example.neostore2.Helpers.RetroViewModel;
 import com.example.neostore2.Response.ResponseDetails;
 
+import java.io.File;
+import java.io.FileOutputStream;
 import java.text.NumberFormat;
 import java.util.List;
 import java.util.Locale;
 
-public class ActivityDetails extends AppCompatActivity {
+public class ActivityDetails extends ActivityBase {
     private RecyclerView mRecyclerView;
     private RecyclerView.Adapter mAdapter;
     private RecyclerView.LayoutManager mLayoutManager;
@@ -65,10 +71,8 @@ public class ActivityDetails extends AppCompatActivity {
 
         model = new ViewModelProvider(this).get(RetroViewModel.class);
 
-        findViewById(R.id.ivBack).setOnClickListener(v -> {
-            finish();
-            overridePendingTransition(R.anim.slide_in_left, R.anim.slide_out_right);
-        });
+        BackPressed(R.anim.slide_in_left, R.anim.slide_out_right);
+
 
         findViewById(R.id.cart).setOnClickListener(v -> {
             Intent cart = new Intent(ActivityDetails.this, ActivityCart.class);
@@ -141,6 +145,27 @@ public class ActivityDetails extends AppCompatActivity {
                     rateClick(data, s, id);
                 });
             }
+        });
+
+        findViewById(R.id.ivShareDetails).setOnClickListener(v -> {
+
+            StrictMode.VmPolicy.Builder builder = new StrictMode.VmPolicy.Builder();
+            StrictMode.setVmPolicy(builder.build());
+
+            ImageView pic = findViewById(R.id.ivDpic);
+            Bitmap bm = ((android.graphics.drawable.BitmapDrawable) pic.getDrawable()).getBitmap();
+            try {
+                java.io.File file = new java.io.File(getExternalCacheDir() + "/image.jpg");
+                java.io.OutputStream out = new java.io.FileOutputStream(file);
+                bm.compress(Bitmap.CompressFormat.JPEG, 100, out);
+                out.flush();
+                out.close();
+            } catch (Exception e) {}
+            Intent iten = new Intent(android.content.Intent.ACTION_SEND);
+            iten.setType("*/*");
+            iten.putExtra(Intent.EXTRA_STREAM, Uri.fromFile(new java.io.File(getExternalCacheDir() + "/image.jpg")));
+            startActivity(Intent.createChooser(iten, "Send image"));
+
         });
 
 
@@ -248,9 +273,9 @@ public class ActivityDetails extends AppCompatActivity {
         String q = quantity.getText().toString();
         int iq = Integer.parseInt(q);
         if (iq > 8) {
-            Toast.makeText(this, "Max Quatity allowed 8", Toast.LENGTH_SHORT).show();
+            showToast("Max Quatity allowed 8");
         } else if (iq == 0) {
-            Toast.makeText(this, "Min Quantity 1", Toast.LENGTH_SHORT).show();
+            showToast("Min Quantity 1");
         } else {
             String token = HelperShared.Helper.getInstance(getApplicationContext()).fetchUser().getToken();
 

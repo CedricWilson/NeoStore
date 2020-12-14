@@ -22,7 +22,7 @@ import com.example.neostore2.Helpers.RetroViewModel;
 
 import java.util.List;
 
-public class ActivityProductTable extends AppCompatActivity {
+public class ActivityProductTable extends ActivityBase {
     private RecyclerView mRecyclerView;
     private AdapterProduct mAdapter;
     private RecyclerView.LayoutManager mLayoutManager;
@@ -45,10 +45,7 @@ public class ActivityProductTable extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_product_table);
 
-        findViewById(R.id.ivBack).setOnClickListener(v -> {
-            finish();
-            overridePendingTransition(R.anim.slide_in_left, R.anim.slide_out_right);
-        });
+        BackPressed(R.anim.slide_in_left, R.anim.slide_out_right);
 
         Toolbar toolbar = findViewById(R.id.hometoolbar);
         setSupportActionBar(toolbar);

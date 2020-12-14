@@ -14,7 +14,7 @@ import com.example.neostore2.Helpers.HelperShared;
 import com.example.neostore2.Helpers.RetroViewModel;
 import com.example.neostore2.Response.ResponseChangePassword;
 
-public class ActivityChangePassword extends AppCompatActivity {
+public class ActivityChangePassword extends ActivityBase {
     private RetroViewModel model;
 
     @Override
@@ -23,7 +23,8 @@ public class ActivityChangePassword extends AppCompatActivity {
         setContentView(R.layout.activity_change_password);
 
         model = new ViewModelProvider(this).get(RetroViewModel.class);
-        findViewById(R.id.ivBack).setOnClickListener(v -> { finish(); });
+
+        BackPressed(R.anim.slide_in_left, R.anim.slide_out_right);
 
         Button submit = findViewById(R.id.btSubmit);
 
@@ -53,7 +54,6 @@ public class ActivityChangePassword extends AppCompatActivity {
     }
     @Override
     public void onBackPressed() {
-        finish();
-        overridePendingTransition(R.anim.slide_in_left, R.anim.slide_out_right);
+        BackPressed(R.anim.slide_in_left, R.anim.slide_out_right);
     }
 }

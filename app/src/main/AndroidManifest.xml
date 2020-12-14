@@ -3,6 +3,8 @@
     package="com.example.neostore2">
 
     <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
 
     <application
         android:allowBackup="true"
@@ -12,7 +14,8 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme.NoActionBar"
         android:usesCleartextTraffic="true">
-        <activity android:name=".ActivityForgotPassword"></activity>
+        <activity android:name=".ActivityBase"></activity>
+        <activity android:name=".ActivityForgotPassword" />
         <activity android:name=".ActivityChangePassword" />
         <activity android:name=".ActivityEditProfile" />
         <activity android:name=".ActivityOrderDetails" />
@@ -25,9 +28,7 @@
             android:launchMode="singleTop" />
         <activity android:name=".ActivityCart" />
         <activity android:name=".ActivityDetails" />
-        <activity android:name=".ActivityProductTable"
-
-            />
+        <activity android:name=".ActivityProductTable" />
         <activity
             android:name=".ActivityHomepage"
             android:theme="@style/splashScreenTheme">

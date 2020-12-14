@@ -16,7 +16,7 @@ import com.example.neostore2.Helpers.RetroViewModel;
 
 import java.util.List;
 
-public class ActivityOrderList extends AppCompatActivity {
+public class ActivityOrderList extends ActivityBase {
     private RetroViewModel retroViewModel;
     private RecyclerView mRecyclerView;
     private RecyclerView.Adapter mAdapter;
@@ -28,7 +28,9 @@ public class ActivityOrderList extends AppCompatActivity {
         setContentView(R.layout.activity_order_list);
 
         retroViewModel = new ViewModelProvider(this).get(RetroViewModel.class);
-        findViewById(R.id.ivBack).setOnClickListener(v -> { finish(); });
+
+        BackPressed(R.anim.slide_in_left, R.anim.slide_out_right);
+
 
 
         mRecyclerView = findViewById(R.id.orderRecycler);

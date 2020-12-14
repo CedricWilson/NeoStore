@@ -30,7 +30,7 @@ import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Locale;
 
-public class ActivityEditProfile extends AppCompatActivity {
+public class ActivityEditProfile extends ActivityBase {
     Bitmap bitmap;
     ImageView profile;
     Button selectImg,uploadImg;
@@ -65,7 +65,8 @@ public class ActivityEditProfile extends AppCompatActivity {
         emailbox.setText(defemail);
         phonebox.setText(defphone);
 
-        findViewById(R.id.ivBack).setOnClickListener(v -> { finish(); });
+        BackPressed(R.anim.slide_in_left, R.anim.slide_out_right);
+
 
         final Calendar myCalendar = Calendar.getInstance();
 

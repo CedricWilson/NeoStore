@@ -21,7 +21,7 @@ import java.text.NumberFormat;
 import java.util.List;
 import java.util.Locale;
 
-public class ActivityOrderDetails extends AppCompatActivity {
+public class ActivityOrderDetails extends ActivityBase {
     private RetroViewModel model;
     private RecyclerView mRecyclerView;
     private RecyclerView.Adapter mAdapter;
@@ -33,10 +33,8 @@ public class ActivityOrderDetails extends AppCompatActivity {
         setContentView(R.layout.activity_order_details);
         model = new ViewModelProvider(this).get(RetroViewModel.class);
 
-        findViewById(R.id.ivBack).setOnClickListener(v -> {
-            finish();
-            overridePendingTransition(R.anim.slide_in_left, R.anim.slide_out_right);
-        });
+        BackPressed(R.anim.slide_in_left, R.anim.slide_out_right);
+
 
         mRecyclerView = findViewById(R.id.orderDetailRecycler);
         mLayoutManager = new LinearLayoutManager(this);

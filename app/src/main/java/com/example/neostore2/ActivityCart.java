@@ -1,5 +1,6 @@
 package com.example.neostore2;
 
+import android.app.Activity;
 import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
@@ -30,12 +31,13 @@ import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
-public class ActivityCart extends AppCompatActivity {
+public class ActivityCart extends ActivityBase {
     private RecyclerView mRecyclerView;
     private RecyclerView.Adapter mAdapter;
     private RecyclerView.LayoutManager mLayoutManager;
     private RetroViewModel model;
     boolean cartIsEmpty = true;
+    private Activity ActivityHomepage;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -44,6 +46,7 @@ public class ActivityCart extends AppCompatActivity {
         mRecyclerView = findViewById(R.id.cartRecycler);
         mLayoutManager = new LinearLayoutManager(this);
         mRecyclerView.setLayoutManager(mLayoutManager);
+
 
         findViewById(R.id.ivBack).setOnClickListener(v -> {
             Intent home =new Intent(ActivityCart.this, ActivityHomepage.class);

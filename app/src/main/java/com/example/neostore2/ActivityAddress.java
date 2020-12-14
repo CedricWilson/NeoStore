@@ -24,7 +24,7 @@ import com.example.neostore2.Response.ResponseOrder;
 
 import java.util.List;
 
-public class ActivityAddress extends AppCompatActivity {
+public class ActivityAddress extends ActivityBase {
     public static final int ADD_NOTE_REQ = 1;
     private NoteViewModel noteViewModel;
     private RetroViewModel retroViewModel;
@@ -48,9 +48,8 @@ public class ActivityAddress extends AppCompatActivity {
                 overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left);
             }
         });
-        findViewById(R.id.ivBack).setOnClickListener(v -> {
-            finish();
-        });
+
+        BackPressed(R.anim.slide_in_left, R.anim.slide_out_right);
 
 
         RecyclerView mRecycler = findViewById(R.id.AddressRecycler);
@@ -124,8 +123,7 @@ public class ActivityAddress extends AppCompatActivity {
 
     @Override
     public void onBackPressed() {
-        finish();
-        overridePendingTransition(R.anim.slide_in_left, R.anim.slide_out_right);
+        BackPressed(R.anim.slide_in_left, R.anim.slide_out_right);
     }
 
     @Override
